@@ -1,0 +1,22 @@
+#pragma once
+
+#include "SceneBase.h"
+#include "../Application.h"
+
+class SceneManager;
+
+class TitleScene : public SceneBase
+{
+public:
+
+	TitleScene(void);
+	~TitleScene(void);
+
+	void Init(void) override;
+	void Update(void) override;
+	void Draw(void) override;
+	void Release(void) override;
+
+private:
+
+};

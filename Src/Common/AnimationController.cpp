@@ -52,14 +52,13 @@ void AnimationController::Play(int type, bool isLoop)
 
 	if (playAnim_.model == -1)
 	{
-		// モデルと同じファイルからアニメーションをアタッチする
-		playAnim_.attachNo = MV1AttachAnim(modelId_, playAnim_.animIndex);
+		// モデルに含まれているアニメーションを使う場合
+		playAnim_.attachNo = MV1AttachAnim(modelId_, playAnim_.animIndex, -1, FALSE);
 	}
 	else
 	{
-		// 別のモデルファイルからアニメーションをアタッチする
-		int animIdx = 0;
-		playAnim_.attachNo = MV1AttachAnim(modelId_, animIdx, playAnim_.model);
+		// 外部モデルからアニメーションを持ってくる場合
+		playAnim_.attachNo = MV1AttachAnim(modelId_, playAnim_.animIndex, playAnim_.model, FALSE);
 	}
 
 	// アニメーション総時間の取得
@@ -98,17 +97,17 @@ void AnimationController::Update(void)
 
 void AnimationController::Release(void)
 {
-	// 可変長配列をクリアする
-	animations_.clear();
-
-	// ロードした外部FBXモデル（アニメーション）のメモリを開放する
-	for (const std::pair<int, Animation>& pair : animations_)
+	// ロードした外部FBXモデル（アニメーション）のメモリを開放
+	for (const auto& pair : animations_)
 	{
 		if (pair.second.model != -1)
 		{
 			MV1DeleteModel(pair.second.model);
 		}
 	}
+
+	// 可変長配列をクリアする
+	animations_.clear();
 }
 
 bool AnimationController::IsEnd(void) const

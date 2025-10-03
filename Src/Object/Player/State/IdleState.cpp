@@ -7,8 +7,7 @@
 
 void IdleState::Enter(Player& player)
 {
-    if (player.GetAnimationController())
-        player.GetAnimationController()->Play(0, true); // IDLE
+    player.GetAnimationController()->Play(0, true); // IDLEƒAƒjƒÄ¶
 }
 
 void IdleState::Update(Player& player)

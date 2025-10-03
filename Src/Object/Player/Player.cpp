@@ -24,15 +24,23 @@ void Player::Init(const char* modelPath)
     if (modelId_ == -1) {
         printfDx("Player model load failed\n");
     }
+
+    int animNum = MV1GetAnimNum(modelId_);
+    printfDx("Anim num: %d\n", animNum);
+    for (int i = 0; i < animNum; i++) {
+        double totalTime = MV1GetAnimTotalTime(modelId_, i);
+        printfDx("Anim %d time: %f\n", i, totalTime);
+    }
+
     MV1SetPosition(modelId_, pos_);
     MV1SetScale(modelId_, scales_);
 
     animationController_ = std::make_unique<AnimationController>(modelId_);
 
     // アニメーション登録（例）
-    animationController_->AddInFbx(0, 30.f, 0); // IDLE
-    animationController_->AddInFbx(1, 30.f, 1); // WALK
-    animationController_->AddInFbx(2, 30.f, 2); // JUMP
+    animationController_->AddInFbx(0, 30.f, 36); // IDLE
+    animationController_->AddInFbx(1, 30.f, 73); // WALK
+    animationController_->AddInFbx(2, 30.f, 39); // JUMP
 
     // 初期状態 Idle
     ChangeState<IdleState>();
@@ -40,10 +48,27 @@ void Player::Init(const char* modelPath)
 
 void Player::Update()
 {
+    MV1SetPosition(modelId_, pos_);
+    MV1SetRotationXYZ(modelId_, angles_);
 
-	MV1SetPosition(modelId_, pos_);
-	MV1SetRotationXYZ(modelId_, angles_);
-    if (currentState_) currentState_->Update(*this);
+    // ---- デバッグ用アニメーションテスト ----
+#ifdef _DEBUG
+    if (CheckHitKey(KEY_INPUT_1)) {
+        animationController_->Play(0, true); // IDLE
+    }
+    else if (CheckHitKey(KEY_INPUT_2)) {
+        animationController_->Play(1, true); // WALK
+    }
+    else if (CheckHitKey(KEY_INPUT_3)) {
+        animationController_->Play(2, false); // JUMP
+    }
+    else
+#endif
+    {
+        // 通常の状態管理を使う
+        if (currentState_) currentState_->Update(*this);
+    }
+
     if (animationController_) animationController_->Update();
 }
 

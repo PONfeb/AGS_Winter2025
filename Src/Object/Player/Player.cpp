@@ -6,9 +6,7 @@
 #include "../../Manager/InputManager.h"
 #include "../../Application.h"
 
-Player::Player()
-    : modelId_(-1), pos_(DEFAULT_POS), angles_{ 0,0,0 }, scales_(SCALES),
-    jumpPow_(0.f), isJump_(false)
+Player::Player() : modelId_(-1), pos_(DEFAULT_POS), angles_{ 0,0,0 }, scales_(SCALES), jumpPow_(0.f), isJump_(false)
 {
 }
 
@@ -25,12 +23,12 @@ void Player::Init(const char* modelPath)
         printfDx("Player model load failed\n");
     }
 
-    int animNum = MV1GetAnimNum(modelId_);
-    printfDx("Anim num: %d\n", animNum);
-    for (int i = 0; i < animNum; i++) {
-        double totalTime = MV1GetAnimTotalTime(modelId_, i);
-        printfDx("Anim %d time: %f\n", i, totalTime);
-    }
+    //int animNum = MV1GetAnimNum(modelId_);
+    //printfDx("Anim num: %d\n", animNum);
+    //for (int i = 0; i < animNum; i++) {
+    //    double totalTime = MV1GetAnimTotalTime(modelId_, i);
+    //    printfDx("Anim %d time: %f\n", i, totalTime);
+    //}
 
     MV1SetPosition(modelId_, pos_);
     MV1SetScale(modelId_, scales_);

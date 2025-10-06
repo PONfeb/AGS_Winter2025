@@ -286,6 +286,14 @@ COLOR_F Utility::Lerp(const COLOR_F& start, const COLOR_F& end, float t)
     return ret;
 }
 
+float Utility::LerpAngle(float from, float to, float t)
+{
+    float delta = to - from;
+    while (delta > DX_PI_F)  delta -= 2.0f * DX_PI_F;
+    while (delta < -DX_PI_F) delta += 2.0f * DX_PI_F;
+    return from + delta * t;
+}
+
 Vector2 Utility::Bezier(const Vector2& p1, const Vector2& p2, const Vector2& p3, float t)
 {
     Vector2 a = Lerp(p1, p2, t);

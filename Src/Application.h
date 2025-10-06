@@ -26,11 +26,12 @@ public:
     // データパス
     static const std::string PATH_DATA;
     static const std::string PATH_MODEL;
+    static const std::string PATH_IMAGE;
     static const std::string PATH_SOUND;
-    static const std::string PATH_UI;
     static const std::string PATH_STAGE;
     static const std::string PATH_PLAYER;
     static const std::string PATH_ENEMY;
+    static const std::string PATH_UI;
     static const std::string PATH_SE;
     static const std::string PATH_BGM;
 

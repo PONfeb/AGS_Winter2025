@@ -26,10 +26,33 @@ void GameScene::Init(void)
 	// プレイヤー
 	player_ = new Player();
     player_->Init("player.mv1");
+
+    pauseMenu_.Init();
+
+    wasPauseVisible_ = false;
 }
 
 void GameScene::Update(void)
 {
+
+    // まず入力処理
+    pauseMenu_.Update(); // ポーズ画面の更新は必ず呼ぶ
+
+    if (pauseMenu_.IsVisible()) {
+        if (!wasPauseVisible_) {
+            wasPauseVisible_ = true;
+            // BGM停止など
+        }
+        // ポーズ中はゲーム本体の更新をスキップ
+        return;
+    }
+    else {
+        if (wasPauseVisible_) {
+            wasPauseVisible_ = false;
+            // BGM再開など
+        }
+    }
+
     // グリッド線
     grid_->Update();
 
@@ -54,6 +77,8 @@ void GameScene::Draw(void)
     stageA_->Draw();
 
 	player_->Draw();
+
+    pauseMenu_.Draw();
 }
 
 void GameScene::Release(void)
@@ -71,4 +96,6 @@ void GameScene::Release(void)
 	player_->Release();
 	delete player_;
 	player_ = nullptr;
+
+	pauseMenu_.Release();
 }

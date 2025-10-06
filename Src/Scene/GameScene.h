@@ -2,15 +2,18 @@
 #pragma once
 
 #include "SceneBase.h"
-#include "../Application.h"
 #include "../Debug/Grid.h"
+#include "../Common/PauseMenu.h"
 #include "../Common/Camera.h"
 #include "../Object/Stage/RoomType_A.h"
 #include "../Object/Player/Player.h"
+#include "../Application.h"
 
 class SceneManager;
 
 class Grid;
+
+class PauseMenu;
 
 class RoomType_A;
 
@@ -33,9 +36,14 @@ private:
 	// グリッド線
 	Grid* grid_;
 
+	// ポーズメニュー
+	PauseMenu pauseMenu_;
+
 	// ステージ
 	RoomType_A* stageA_;
 
 	// プレイヤー
 	Player* player_;
+
+	bool wasPauseVisible_;
 };

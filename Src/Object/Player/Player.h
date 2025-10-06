@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include <DxLib.h>
-#include <memory>
 #include "State/Base/PlayerStateBase.h"
 #include "../../Common/AnimationController.h"
+#include <memory>
+#include <DxLib.h>
 
 class Player
 {

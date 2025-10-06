@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "../Common/Collision.h"
+#include "Collision.h"
 #include "../Application.h"
 
 class PauseMenu {
@@ -18,6 +18,7 @@ public:
 	~PauseMenu();
 
 	void Init(void);             // ‰æ‘œ‚È‚Ç‚Ì“Ç‚İ‚İ
+	void LoadInit();
 	void Update(void);           // “ü—Íˆ—
 	void Draw(void);             // •`‰æˆ—
 	void Release(void);
@@ -28,13 +29,13 @@ public:
 
 private:
 
-	Box pauseSelect_;
-	Box pauseExit_;
+	Box PauseContinue_;
+	Box PauseExit_;
 
 	bool visible_;
 
-	int pauseSelectImg_;
-	int pauseSelectHoverImg_;
-	int pauseExitImg_;
-	int pauseExitHoverImg_;
+	int PauseContinueImg_;
+	int PauseContinueHoverImg_;
+	int PauseExitImg_;
+	int PauseExitHoverImg_;
 };

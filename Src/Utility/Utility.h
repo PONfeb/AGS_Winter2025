@@ -73,6 +73,8 @@ public:
 	// 色の線形補間
 	static COLOR_F Lerp(const COLOR_F& start, const COLOR_F& end, float t);
 
+	static float LerpAngle(float from, float to, float t);
+
 	// ベジェ曲線
 	static Vector2 Bezier(const Vector2& p1, const Vector2& p2, const Vector2& p3, float t);
 	static VECTOR Bezier(const VECTOR& p1, const VECTOR& p2, const VECTOR& p3, float t);

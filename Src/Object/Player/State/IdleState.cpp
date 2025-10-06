@@ -1,8 +1,8 @@
 
 #include "IdleState.h"
-#include "../../../Common/Instance.h"
 #include "MoveState.h"
 #include "JumpState.h"
+#include "../../../Common/Instance.h"
 #include <DxLib.h>
 
 void IdleState::Enter(Player& player)

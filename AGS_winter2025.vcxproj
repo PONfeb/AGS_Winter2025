@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\PauseMenu.cpp" />
     <ClCompile Include="Src\Object\Player\State\MoveState.cpp" />
     <ClCompile Include="Src\Common\Camera.cpp" />
     <ClCompile Include="Src\Common\Quaternion.cpp" />
@@ -164,6 +165,8 @@
     <ClCompile Include="Src\Object\Player\State\JumpState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\Collision.h" />
+    <ClInclude Include="Src\Common\PauseMenu.h" />
     <ClInclude Include="Src\Object\Player\State\MoveState.h" />
     <ClInclude Include="Src\Common\Camera.h" />
     <ClInclude Include="Src\Common\Quaternion.h" />

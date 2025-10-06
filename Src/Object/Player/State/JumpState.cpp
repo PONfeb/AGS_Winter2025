@@ -14,14 +14,13 @@ void JumpState::Enter(Player& player)
 
 void JumpState::Update(Player& player)
 {
-    auto& input = Ins::input();
 
     // â°à⁄ìÆÅiãÛíÜÇ≈Ç‡â¬î\Åj
     VECTOR moveDir = { 0, 0, 0 };
-    if (input.IsNew(KEY_INPUT_W)) moveDir.z += 1.0f;
-    if (input.IsNew(KEY_INPUT_S)) moveDir.z -= 1.0f;
-    if (input.IsNew(KEY_INPUT_A)) moveDir.x -= 1.0f;
-    if (input.IsNew(KEY_INPUT_D)) moveDir.x += 1.0f;
+    if (Ins::input().IsNew(KEY_INPUT_W)) moveDir.z += 1.0f;
+    if (Ins::input().IsNew(KEY_INPUT_S)) moveDir.z -= 1.0f;
+    if (Ins::input().IsNew(KEY_INPUT_A)) moveDir.x -= 1.0f;
+    if (Ins::input().IsNew(KEY_INPUT_D)) moveDir.x += 1.0f;
 
     if (moveDir.x != 0.0f || moveDir.z != 0.0f)
     {

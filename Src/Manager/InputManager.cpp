@@ -136,6 +136,32 @@ bool InputManager::IsTrgUp(int key) const
 	return Find(key).keyTrgUp;
 }
 
+bool InputManager::IsLaterPressed(int key1, int key2) const
+{
+	const auto& info1 = Find(key1);
+	const auto& info2 = Find(key2);
+
+	// どちらも押されていなければ false
+	if (!info1.keyNew && !info2.keyNew)
+		return false;
+
+	// 片方しか押されていなければ、その押されている方を優先
+	if (info1.keyNew && !info2.keyNew)
+		return true; // key1 が押されている
+	if (!info1.keyNew && info2.keyNew)
+		return false; // key2 が押されている
+
+	// 両方押されている場合、後に押された方を優先
+	// 押された瞬間のフレームを記録していないので、代わりに「トリガー」を見て判定
+	if (info1.keyTrgDown && !info2.keyTrgDown)
+		return true; // key1 が後から押された
+	if (!info1.keyTrgDown && info2.keyTrgDown)
+		return false; // key2 が後から押された
+
+	// 同時に押された場合は key1 を優先（任意）
+	return true;
+}
+
 Vector2 InputManager::GetMousePos(void) const
 {
 	return mousePos_;

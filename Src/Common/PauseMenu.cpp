@@ -2,6 +2,7 @@
 #include "PauseMenu.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
+#include "instance.h"
 #include <DxLib.h>
 
 PauseMenu::PauseMenu()
@@ -12,26 +13,33 @@ PauseMenu::~PauseMenu()
 {
 }
 
-void PauseMenu::Init() {
+void PauseMenu::Init() 
+{
 
-	pauseSelectImg_ = LoadGraph((Application::PATH_UI + "stage_select.png").c_str());
-	pauseSelectHoverImg_ = LoadGraph((Application::PATH_UI + "stage_select_hover.png").c_str());
-	pauseExitImg_ = LoadGraph((Application::PATH_UI + "game_exit.png").c_str());
-	pauseExitHoverImg_ = LoadGraph((Application::PATH_UI + "game_exit_hover.png").c_str());
+	PauseContinue_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y - PAUSE_OFFSET_Y / 2 - PAUSE_SPACE };
+	PauseContinue_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
 
-	pauseSelect_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y - PAUSE_OFFSET_Y / 2 - PAUSE_SPACE };
-	pauseSelect_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
+	PauseExit_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y + PAUSE_OFFSET_Y / 2 + PAUSE_SPACE };
+	PauseExit_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
 
-	pauseExit_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y + PAUSE_OFFSET_Y / 2 + PAUSE_SPACE };
-	pauseExit_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
+	LoadInit();
+
 }
 
-void PauseMenu::Update() {
+void PauseMenu::LoadInit()
+{
 
-	InputManager& input = InputManager::GetInstance();
-	SceneManager& scene = SceneManager::GetInstance();
+	PauseContinueImg_      = LoadGraph((Application::PATH_UI + "Continue.png").c_str());
+	PauseContinueHoverImg_ = LoadGraph((Application::PATH_UI + "Continue_hover.png").c_str());
+	PauseExitImg_          = LoadGraph((Application::PATH_UI + "QuitGame.png").c_str());
+	PauseExitHoverImg_     = LoadGraph((Application::PATH_UI + "QuitGam_hover.png").c_str());
 
-	if (input.IsTrgDown(KEY_INPUT_ESCAPE)) {
+}
+
+void PauseMenu::Update()
+{
+
+	if (Ins::input().IsTrgDown(KEY_INPUT_ESCAPE)) {
 		if (!IsVisible()) {
 			Show();
 		}
@@ -42,20 +50,22 @@ void PauseMenu::Update() {
 
 	if (!visible_) return;
 
-	if (input.IsTrgMouseLeft())
+	if (Ins::input().IsTrgMouseLeft())
 	{
-		if (CheckMousePointA(pauseSelect_)) {
-			scene.ChangeScene(SceneManager::SCENE_ID::SELECT);
+		if (CheckMousePointA(PauseContinue_)) {
+			Ins::scene().ChangeScene(SceneManager::SceneId::GAME);
 		}
-		else if (CheckMousePointA(pauseExit_)) {
+		else if (CheckMousePointA(PauseExit_)) {
 			DxLib_End();
 			exit(0);
 		}
 	}
+
 }
 
 void PauseMenu::Draw()
 {
+
 	if (!visible_) return;
 
 	// îºìßñæÉOÉåÅ[îwåi
@@ -64,20 +74,23 @@ void PauseMenu::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// É{É^Éìï`âÊ
-	bool isHoverReturn = CheckMousePointA(pauseSelect_);
-	bool isHoverExit = CheckMousePointA(pauseExit_);
+	bool isHoverReturn = CheckMousePointA(PauseContinue_);
+	bool isHoverExit = CheckMousePointA(PauseExit_);
 
-	DrawRotaGraph(pauseSelect_.pos.x, pauseSelect_.pos.y, 1.0f, 0.0f, isHoverReturn ? pauseSelectHoverImg_ : pauseSelectImg_, TRUE);
+	DrawRotaGraph(PauseContinue_.pos.x, PauseContinue_.pos.y, 1.0f, 0.0f, isHoverReturn ? PauseContinueHoverImg_ : PauseContinueImg_, TRUE);
 
-	DrawRotaGraph(pauseExit_.pos.x, pauseExit_.pos.y, 1.0f, 0.0f, isHoverExit ? pauseExitHoverImg_ : pauseExitImg_, TRUE);
+	DrawRotaGraph(PauseExit_.pos.x, PauseExit_.pos.y, 1.0f, 0.0f, isHoverExit ? PauseExitHoverImg_ : PauseExitImg_, TRUE);
+
 }
 
 void PauseMenu::Release(void)
 {
-	DeleteGraph(pauseSelectImg_);
-	DeleteGraph(pauseSelectHoverImg_);
-	DeleteGraph(pauseExitImg_);
-	DeleteGraph(pauseExitHoverImg_);
+
+	DeleteGraph(PauseContinueImg_);
+	DeleteGraph(PauseContinueHoverImg_);
+	DeleteGraph(PauseExitImg_);
+	DeleteGraph(PauseExitHoverImg_);
+
 }
 
 void PauseMenu::Show() { visible_ = true; }

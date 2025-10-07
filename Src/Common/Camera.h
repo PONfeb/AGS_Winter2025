@@ -1,7 +1,10 @@
 
 #pragma once
 
+#include "../Object/Player/Player.h"
 #include <DxLib.h>
+
+class Player;
 
 class Camera
 {
@@ -12,7 +15,8 @@ public:
 	{
 		NONE,
 		FIXED_POINT, // 定点カメラ
-		FREE, // フリーモード
+		FREE,		 // フリーモード
+		FOLLOW,		 // 追従モード
 	};
 
 	// カメラの初期位置
@@ -50,7 +54,11 @@ public:
 	// カメラモードの変更
 	void ChangeMode(MODE mode);
 
+	void SetTargetPlayer(Player* player) { targetPlayer_ = player; }
+
 private:
+
+	Player* targetPlayer_;
 
 	// カメラモード
 	MODE mode_;
@@ -61,7 +69,10 @@ private:
 	// カメラの角度
 	VECTOR angles_;
 
+	float smoothSpeed = 0.1f;
+
 	// カメラモード別の制御処理
 	void SetBeforeDrawFixedPoint(void);
 	void SetBeforeDrawFree(void);
+	void SetBeforeDrawFollow(void);
 };

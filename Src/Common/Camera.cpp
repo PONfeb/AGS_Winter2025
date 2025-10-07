@@ -6,11 +6,6 @@
 
 Camera::Camera(void)
 {
-	// DxLibの初期設定では、
-	// カメラの位置が x = 320.0f, y = 240.0f, z = (画面のサイズによって変化)、
-	// 注視点の位置は x = 320.0f, y = 240.0f, z = 1.0f
-	// カメラの上方向は x = 0.0f, y = 1.0f, z = 0.0f
-	// 右上位置からZ軸のプラス方向を見るようなカメラ
 }
 
 Camera::~Camera()
@@ -42,7 +37,7 @@ void Camera::SetBeforeDraw(void)
 		SetBeforeDrawFixedPoint();
 		break;
 	case Camera::MODE::FREE:
-    		SetBeforeDrawFree();
+    	SetBeforeDrawFree();
 		break;
 	}
 
@@ -71,14 +66,13 @@ void Camera::SetBeforeDrawFixedPoint(void)
 }
 void Camera::SetBeforeDrawFree(void)
 {
-	auto& input = Ins::input();
 
 	// カメラの回転角度
 	float rotPow = 1.0f * DX_PI_F / 180.0f;
-	if (input.IsNew(KEY_INPUT_UP))    angles_.x -= rotPow; // 上下回転
-	if (input.IsNew(KEY_INPUT_DOWN))  angles_.x += rotPow;
-	if (input.IsNew(KEY_INPUT_LEFT))  angles_.y -= rotPow; // 左右回転
-	if (input.IsNew(KEY_INPUT_RIGHT)) angles_.y += rotPow;
+	if (Ins::input().IsNew(KEY_INPUT_UP))    angles_.x -= rotPow; // 上下回転
+	if (Ins::input().IsNew(KEY_INPUT_DOWN))  angles_.x += rotPow;
+	if (Ins::input().IsNew(KEY_INPUT_LEFT))  angles_.y -= rotPow; // 左右回転
+	if (Ins::input().IsNew(KEY_INPUT_RIGHT)) angles_.y += rotPow;
 
 	// 移動速度
 	float movePow = 3.0f;
@@ -89,14 +83,14 @@ void Camera::SetBeforeDrawFree(void)
 	VECTOR right = VGet(cosf(angles_.y), 0, -sinf(angles_.y));
 
 	// 前後左右移動
-	if (input.IsNew(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, movePow));
-	if (input.IsNew(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -movePow));
-	if (input.IsNew(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -movePow));
-	if (input.IsNew(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, movePow));
+	if (Ins::input().IsNew(KEY_INPUT_W)) pos_ = VAdd(pos_, VScale(forward, movePow));
+	if (Ins::input().IsNew(KEY_INPUT_S)) pos_ = VAdd(pos_, VScale(forward, -movePow));
+	if (Ins::input().IsNew(KEY_INPUT_A)) pos_ = VAdd(pos_, VScale(right, -movePow));
+	if (Ins::input().IsNew(KEY_INPUT_D)) pos_ = VAdd(pos_, VScale(right, movePow));
 
 	// Q/Eで上下移動
-	if (input.IsNew(KEY_INPUT_Q)) pos_.y += movePow;
-	if (input.IsNew(KEY_INPUT_E)) pos_.y -= movePow;
+	if (Ins::input().IsNew(KEY_INPUT_Q)) pos_.y += movePow;
+	if (Ins::input().IsNew(KEY_INPUT_E)) pos_.y -= movePow;
 }
 
 void Camera::ChangeMode(MODE mode)
@@ -109,6 +103,8 @@ void Camera::ChangeMode(MODE mode)
 	case Camera::MODE::FIXED_POINT:
 		break;
 	case Camera::MODE::FREE:
+		break;
+	case Camera::MODE::FOLLOW:
 		break;
 	}
 }

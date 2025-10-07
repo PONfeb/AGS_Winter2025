@@ -17,10 +17,27 @@ void JumpState::Update(Player& player)
 
     // 横移動（空中でも可能）
     VECTOR moveDir = { 0, 0, 0 };
-    if (Ins::input().IsNew(KEY_INPUT_W)) moveDir.z += 1.0f;
-    if (Ins::input().IsNew(KEY_INPUT_S)) moveDir.z -= 1.0f;
-    if (Ins::input().IsNew(KEY_INPUT_A)) moveDir.x -= 1.0f;
-    if (Ins::input().IsNew(KEY_INPUT_D)) moveDir.x += 1.0f;
+    bool w = Ins::input().IsNew(KEY_INPUT_W);
+    bool s = Ins::input().IsNew(KEY_INPUT_S);
+    bool a = Ins::input().IsNew(KEY_INPUT_A);
+    bool d = Ins::input().IsNew(KEY_INPUT_D);
+
+	// 同時押しは後に押した方優先
+    if (w && s)
+    {
+        if (Ins::input().IsLaterPressed(KEY_INPUT_W, KEY_INPUT_S)) moveDir.z += 1;
+        else moveDir.z -= 1;
+    }
+    else if (w) moveDir.z += 1;
+    else if (s) moveDir.z -= 1;
+
+    if (a && d)
+    {
+        if (Ins::input().IsLaterPressed(KEY_INPUT_A, KEY_INPUT_D)) moveDir.x -= 1;
+        else moveDir.x += 1;
+    }
+    else if (a) moveDir.x -= 1;
+    else if (d) moveDir.x += 1;
 
     if (moveDir.x != 0.0f || moveDir.z != 0.0f)
     {
@@ -36,10 +53,10 @@ void JumpState::Update(Player& player)
             });
 
         // 向きを更新
-        float angle = atan2f(moveDir.x, moveDir.z);
-        VECTOR angles = player.GetAngles();
-        angles.y = angle + Utility::Deg2RadF(180.0f);
-        player.SetAngles(angles);
+        float targetY = atan2f(-moveDir.x, -moveDir.z);
+        VECTOR ang = player.GetAngles();
+        ang.y = Utility::LerpAngle(ang.y, targetY, 0.3f);
+        player.SetAngles(ang);
     }
 
     // ジャンプの重力処理

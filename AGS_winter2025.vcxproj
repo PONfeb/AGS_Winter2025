@@ -112,6 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(DXLIB_DIR)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="Src\Common\Collision.h" />
     <ClInclude Include="Src\Common\PauseMenu.h" />
+    <ClInclude Include="Src\Object\Player\State\Base\AttackStateBase.h" />
     <ClInclude Include="Src\Object\Player\State\MoveState.h" />
     <ClInclude Include="Src\Common\Camera.h" />
     <ClInclude Include="Src\Common\Quaternion.h" />

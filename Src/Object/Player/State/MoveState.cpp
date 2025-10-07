@@ -50,10 +50,14 @@ void MoveState::Update(Player& player)
         player.SetPos(pos);
 
         // 滑らかに回転（slerp風補間）
-        float targetY = atan2f(-dir.x, -dir.z); // + DX_PI_F は不要
-        VECTOR ang = player.GetAngles();
-		ang.y = Utility::LerpAngle(ang.y, targetY, 0.3f);
-        player.SetAngles(ang);
+        if (!player.IsMouseControlActive())
+        {
+            // 向きを更新
+            float targetY = atan2f(-dir.x, -dir.z);
+            VECTOR ang = player.GetAngles();
+            ang.y = Utility::LerpAngle(ang.y, targetY, 0.3f);
+            player.SetAngles(ang);
+        }
     }
     else
     {

@@ -15,6 +15,8 @@ public:
     static constexpr float JUMP_POW = 20.0f;
     static constexpr float GRAVITY = 0.8f;
 
+    static constexpr int MOUSE_IDLE_THRESHOLD_FRAMES = 20; // 2秒 * 60FPS
+
     Player();
     ~Player();
 
@@ -37,6 +39,11 @@ public:
     bool GetIsJump() const { return isJump_; }
     void SetIsJump(bool val) { isJump_ = val; }
 
+    void UpdateRotationByMouse();
+    void UpdateRotationByKeyboard();
+
+	bool IsMouseControlActive() const { return isMouseControlActive_; }
+
     template<typename StateType>
     void ChangeState()
     {
@@ -45,13 +52,23 @@ public:
         currentState_->Enter(*this);
     }
 
+
+
 private:
-    int modelId_;
+
     VECTOR pos_;
     VECTOR angles_;
     VECTOR scales_;
-    float jumpPow_;
-    bool isJump_;
+
+	VECTOR playerScreenPos;
+
+	int modelId_;   // MV1モデルID
+	float jumpPow_; // ジャンプ力
+	bool isJump_;   // ジャンプ中かどうか
+
+	bool isMouseControlActive_; // マウスによる視点操作が有効かどうか
+
+    int mouseIdleFrame_ = 0;                 // マウス操作が止まってからの経過フレーム
 
     std::unique_ptr<AnimationController> animationController_;
     std::unique_ptr<PlayerStateBase> currentState_;

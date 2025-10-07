@@ -12,9 +12,12 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
+
+#ifdef _DEBUG
     // グリッド線
     grid_ = new Grid();
     grid_->Init();
+#endif // DEBUG_
 
     // カメラは SceneManager 管理のものを使う
     Ins::scene().GetCamera()->ChangeMode(Camera::MODE::FREE);
@@ -30,6 +33,7 @@ void GameScene::Init(void)
     pauseMenu_.Init();
 
     wasPauseVisible_ = false;
+
 }
 
 void GameScene::Update(void)
@@ -53,8 +57,10 @@ void GameScene::Update(void)
         }
     }
 
+#ifdef _DEBUG
     // グリッド線
     grid_->Update();
+#endif // _DEBUG
 
     // カメラ更新（SceneManager のカメラを使う）
     Ins::scene().GetCamera()->Update();
@@ -63,15 +69,19 @@ void GameScene::Update(void)
 
 	// プレイヤー
     player_->Update();
+
 }
 
 void GameScene::Draw(void)
 {
+
     DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(255, 255, 255), TRUE);
     DrawString(0, 0, "Game Scene", GetColor(0, 0, 0));
-
+    
+#ifdef _DEBUG
     // グリッド線
     grid_->Draw();
+#endif // _DEBUG
 
     // カメラの設定は SceneManager 側でやっているのでここでは不要
     stageA_->Draw();
@@ -79,14 +89,18 @@ void GameScene::Draw(void)
 	player_->Draw();
 
     pauseMenu_.Draw();
+
 }
 
 void GameScene::Release(void)
 {
+
+#ifdef _DEBUG
     // グリッド線
     grid_->Release();
     delete grid_;
     grid_ = nullptr;
+#endif // _DEBUG
 
     stageA_->Release();
     delete stageA_;
@@ -98,4 +112,5 @@ void GameScene::Release(void)
 	player_ = nullptr;
 
 	pauseMenu_.Release();
+
 }

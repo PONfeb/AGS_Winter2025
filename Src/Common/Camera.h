@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "../Object/Player/Player.h"
 #include <DxLib.h>
 
 class Player;
@@ -20,7 +19,7 @@ public:
 	};
 
 	// カメラの初期位置
-	static constexpr VECTOR DEFAULT_POS = { 0.0f, 500.0f, -500.0f };
+	static constexpr VECTOR DEFAULT_POS = { 0.0f, 700.0f, -1000.0f };
 
 	// カメラの初期角度
 	static constexpr VECTOR DEFAULT_ANGLES = { 40.0f * DX_PI_F / 180.0f, 0.0f, 0.0f };
@@ -54,11 +53,11 @@ public:
 	// カメラモードの変更
 	void ChangeMode(MODE mode);
 
-	void SetTargetPlayer(Player* player) { targetPlayer_ = player; }
+	void SetBeforeDrawFollow(Player* player);
 
 private:
 
-	Player* targetPlayer_;
+	Player* player_;
 
 	// カメラモード
 	MODE mode_;
@@ -74,5 +73,4 @@ private:
 	// カメラモード別の制御処理
 	void SetBeforeDrawFixedPoint(void);
 	void SetBeforeDrawFree(void);
-	void SetBeforeDrawFollow(void);
 };

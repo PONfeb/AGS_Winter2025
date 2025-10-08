@@ -12,28 +12,26 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
-
 #ifdef _DEBUG
-    // グリッド線
     grid_ = new Grid();
     grid_->Init();
-#endif // DEBUG_
+#endif
 
-    // カメラは SceneManager 管理のものを使う
-    Ins::scene().GetCamera()->ChangeMode(Camera::MODE::FREE);
+    // プレイヤーを先に作成
+    player_ = new Player();
+    player_->Init("player.mv1");
 
     // ステージ
     stageA_ = new RoomType_A();
     stageA_->Init();
 
-	// プレイヤー
-	player_ = new Player();
-    player_->Init("player.mv1");
+    // カメラ
+    auto camera = Ins::scene().GetCamera();
+    camera->ChangeMode(Camera::MODE::FOLLOW);
+    camera->SetBeforeDrawFollow(player_); // ここでプレイヤーをセット
 
     pauseMenu_.Init();
-
     wasPauseVisible_ = false;
-
 }
 
 void GameScene::Update(void)

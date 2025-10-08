@@ -3,8 +3,8 @@
 
 #include "SceneBase.h"
 #include "../Debug/Grid.h"
-#include "../Common/PauseMenu.h"
 #include "../Common/Camera.h"
+#include "../Common/PauseMenu.h"
 #include "../Object/Stage/RoomType_A.h"
 #include "../Object/Player/Player.h"
 #include "../Application.h"
@@ -12,6 +12,8 @@
 class SceneManager;
 
 class Grid;
+
+class Camera;
 
 class PauseMenu;
 
@@ -35,6 +37,9 @@ private:
 
 	// グリッド線
 	Grid* grid_;
+
+	// カメラ
+	Camera* camera_;
 
 	// ポーズメニュー
 	PauseMenu pauseMenu_;

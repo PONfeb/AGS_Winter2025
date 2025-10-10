@@ -2,8 +2,7 @@
 #include "IdleState.h"
 #include "MoveState.h"
 #include "JumpState.h"
-#include "../../../Common/Instance.h"
-#include <DxLib.h>
+#include "AttackState.h"
 
 void IdleState::Enter(Player& player)
 {
@@ -12,6 +11,14 @@ void IdleState::Enter(Player& player)
 
 void IdleState::Update(Player& player)
 {
+
+    // çUåÇ
+    if (Ins::input().IsTrgMouseLeft())
+    {
+        player.ChangeState<AttackState>();
+        return;
+    }
+
     if (Ins::input().IsNew(KEY_INPUT_W) || Ins::input().IsNew(KEY_INPUT_A) ||
         Ins::input().IsNew(KEY_INPUT_S) || Ins::input().IsNew(KEY_INPUT_D))
     {

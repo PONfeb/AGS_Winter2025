@@ -40,7 +40,7 @@ public:
     void SetIsJump(bool val) { isJump_ = val; }
 
     void UpdateRotationByMouse();
-    void UpdateRotationByKeyboard();
+    void UpdateRotationByKeyboard(const VECTOR& moveDir);
 
 	bool IsMouseControlActive() const { return isMouseControlActive_; }
 

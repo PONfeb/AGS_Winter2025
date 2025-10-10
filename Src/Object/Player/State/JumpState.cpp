@@ -1,8 +1,8 @@
 
 #include "JumpState.h"
 #include "IdleState.h"
+#include "AttackState.h"
 #include "../../../Utility/Utility.h"
-#include "../../../Common/Instance.h"
 
 void JumpState::Enter(Player& player)
 {
@@ -14,6 +14,13 @@ void JumpState::Enter(Player& player)
 
 void JumpState::Update(Player& player)
 {
+
+    // UŒ‚
+    if (Ins::input().IsTrgMouseLeft())
+    {
+        player.ChangeState<AttackState>();
+        return;
+    }
 
     // ‰¡ˆÚ“®i‹ó’†‚Å‚à‰Â”\j
     VECTOR moveDir = { 0, 0, 0 };

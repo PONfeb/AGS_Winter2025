@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "../../../../Common/Instance.h"
 #include <DxLib.h>
 
 class Player;

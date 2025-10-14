@@ -7,7 +7,7 @@
 #include "../../Utility/Utility.h"
 #include "../../Application.h"
 
-Player::Player() : modelId_(-1), pos_(DEFAULT_POS), angles_{ 0,0,0 }, scales_(SCALES), jumpPow_(0.f), isJump_(false)
+Player::Player() : modelId_(-1), pos_(DEFAULT_POS), angles_{ 0,0,0 }, scales_(SCALES), jumpPow_(0.f), isJump_(false), hp_(250)
 {
 }
 
@@ -54,11 +54,11 @@ void Player::Update()
     MV1SetPosition(modelId_, pos_);
     MV1SetRotationXYZ(modelId_, angles_);
 
-    // 攻撃処理（左クリックでAttackStateへ）
-    if (Ins::input().IsTrgMouseLeft())
-    {
-        ChangeState<AttackState>();
-    }
+if (Ins::input().IsTrgMouseLeft() && shotMgr_)
+{
+    currentState_ = std::make_unique<AttackState>(shotMgr_);
+    currentState_->Enter(*this);
+}
 
     // 現在の状態更新
     if (currentState_)
@@ -71,6 +71,8 @@ void Player::Update()
 void Player::Draw()
 {
     MV1DrawModel(modelId_);
+
+    DrawSphere3D(pos_, collisionRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
 }
 
 void Player::Release()
@@ -104,4 +106,19 @@ void Player::UpdateRotationByKeyboard(const VECTOR& moveDir)
     VECTOR ang = GetAngles();
     ang.y = Utility::LerpAngle(ang.y, targetY, 0.3f);
     SetAngles(ang);
+}
+
+void Player::TakeDamage(int damage)
+{
+    hp_ -= damage;
+    if (hp_ <= 0) isAlive_ = false;
+}
+
+VECTOR Player::GetForwardDir() const
+{
+    // Y軸回転角（ラジアン）を取得
+    float rotY = angles_.y; // プレイヤーのY回転角を保持している変数
+    // 前方向ベクトルを計算（XZ平面）
+    VECTOR forward = VGet(-sinf(rotY), 0.0f, -cosf(rotY));
+    return forward;
 }

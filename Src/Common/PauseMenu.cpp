@@ -16,10 +16,10 @@ PauseMenu::~PauseMenu()
 void PauseMenu::Init() 
 {
 
-	PauseContinue_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y - PAUSE_OFFSET_Y / 2 - PAUSE_SPACE };
+	PauseContinue_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y - PAUSE_OFFSET_Y / static_cast<float>(2) - PAUSE_SPACE };
 	PauseContinue_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
 
-	PauseExit_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y + PAUSE_OFFSET_Y / 2 + PAUSE_SPACE };
+	PauseExit_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y + PAUSE_OFFSET_Y / static_cast<float>(2) + PAUSE_SPACE };
 	PauseExit_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
 
 	LoadInit();
@@ -32,7 +32,7 @@ void PauseMenu::LoadInit()
 	PauseContinueImg_      = LoadGraph((Application::PATH_UI + "Continue.png").c_str());
 	PauseContinueHoverImg_ = LoadGraph((Application::PATH_UI + "Continue_hover.png").c_str());
 	PauseExitImg_          = LoadGraph((Application::PATH_UI + "QuitGame.png").c_str());
-	PauseExitHoverImg_     = LoadGraph((Application::PATH_UI + "QuitGam_hover.png").c_str());
+	PauseExitHoverImg_     = LoadGraph((Application::PATH_UI + "QuitGame_hover.png").c_str());
 
 }
 

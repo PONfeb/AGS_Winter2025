@@ -20,6 +20,7 @@ void MoveState::Update(Player& player)
         return;
     }
 
+
     // ˆÚ“®“ü—Í
     VECTOR dir = VGet(0, 0, 0);
     bool w = Ins::input().IsNew(KEY_INPUT_W);

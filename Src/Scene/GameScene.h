@@ -7,6 +7,8 @@
 #include "../Common/PauseMenu.h"
 #include "../Object/Stage/RoomType_A.h"
 #include "../Object/Player/Player.h"
+#include "../Object/Enemy/Enemy.h"
+#include "../Object/Shot/ShotManager.h"
 #include "../Application.h"
 
 class SceneManager;
@@ -21,6 +23,10 @@ class RoomType_A;
 
 class Player;
 
+class Enemy;
+
+class ShotManager;
+
 class GameScene : public SceneBase
 {
 public:
@@ -32,6 +38,8 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 	void Release(void) override;
+
+	void CheckCollision();
 
 private:
 
@@ -49,6 +57,11 @@ private:
 
 	// ÉvÉåÉCÉÑÅ[
 	Player* player_;
+
+	// ìG
+	Enemy* enemy_;
+
+	ShotManager* shotMgr_;
 
 	bool wasPauseVisible_;
 };

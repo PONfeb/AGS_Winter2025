@@ -2,6 +2,7 @@
 #pragma once
 
 #include "State/Base/PlayerStateBase.h"
+#include "../Shot/ShotManager.h"
 #include "../../Common/AnimationController.h"
 #include <memory>
 #include <DxLib.h>
@@ -9,7 +10,7 @@
 class Player
 {
 public:
-    static constexpr VECTOR DEFAULT_POS = { 0, 100, 0 };
+    static constexpr VECTOR DEFAULT_POS = { 0, -100, 0 };
     static constexpr VECTOR SCALES = { 1.f, 1.f, 1.f };
     static constexpr float SPEED_MOVE = 10.0f;
     static constexpr float JUMP_POW = 20.0f;
@@ -39,8 +40,12 @@ public:
     bool GetIsJump() const { return isJump_; }
     void SetIsJump(bool val) { isJump_ = val; }
 
+    int GetHP() const { return hp_; }
+
     void UpdateRotationByMouse();
     void UpdateRotationByKeyboard(const VECTOR& moveDir);
+
+    void TakeDamage(int damage);
 
 	bool IsMouseControlActive() const { return isMouseControlActive_; }
 
@@ -52,9 +57,16 @@ public:
         currentState_->Enter(*this);
     }
 
+    float GetCollisionRadius() const { return collisionRadius_; }
 
+    VECTOR GetForwardDir() const;
 
+    void SetShotManager(ShotManager* mgr) { shotMgr_ = mgr; }
+
+    float collisionRadius_ = 24.0f; // 判定用半径
 private:
+
+    ShotManager* shotMgr_;
 
     VECTOR pos_;
     VECTOR angles_;
@@ -69,6 +81,10 @@ private:
 	bool isMouseControlActive_; // マウスによる視点操作が有効かどうか
 
     int mouseIdleFrame_ = 0;                 // マウス操作が止まってからの経過フレーム
+
+    int hp_;
+    bool isAlive_;
+    int damage_ = 1; // プレイヤーに与えるダメージ
 
     std::unique_ptr<AnimationController> animationController_;
     std::unique_ptr<PlayerStateBase> currentState_;

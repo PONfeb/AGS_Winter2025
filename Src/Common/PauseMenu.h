@@ -6,10 +6,10 @@
 class PauseMenu {
 
 public:
-	static constexpr int PAUSE_OFFSET_X = 400;
-	static constexpr int PAUSE_OFFSET_Y = 56;
+	const float PAUSE_OFFSET_X = 400;
+	const float PAUSE_OFFSET_Y = 56;
 
-	static constexpr int PAUSE_SPACE = 10;
+	const float PAUSE_SPACE = 10;
 
 	const int DEFAULT_POS_X = Application::SCREEN_SIZE_X / 2;
 	const int DEFAULT_POS_Y = Application::SCREEN_SIZE_Y / 2;

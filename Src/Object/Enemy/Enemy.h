@@ -10,7 +10,7 @@ public:
     ~Enemy();
 
     void Init(const VECTOR& pos, int hp = 3);
-    void Update();
+    void Update(Player& player, float deltaTime);
     void Draw();
     void Release();
 
@@ -21,12 +21,15 @@ public:
 
     void TakeDamage(int damage);
 
-    void CheckCollisionWithPlayer(Player& player);
+    void CheckCollisionWithPlayer(Player& player)const;
 
 private:
     VECTOR pos_;
     float radius_;
     int hp_;
     bool isAlive_;
+    bool speed_;
+
+    float detectRange_;
     int damage_ = 1; // プレイヤーに与えるダメージ
 };

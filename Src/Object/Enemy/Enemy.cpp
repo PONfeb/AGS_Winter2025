@@ -1,7 +1,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy() : pos_(VGet(0, 0, 0)), radius_(100.0f), hp_(3), isAlive_(true)
+Enemy::Enemy() : pos_(VGet(0, 0, 0)), radius_(100.0f), detectRange_(1500.0f), speed_(3.0f), hp_(3), isAlive_(true)
 {
 }
 
@@ -17,16 +17,34 @@ void Enemy::Init(const VECTOR& pos, int hp)
     isAlive_ = true;
 }
 
-void Enemy::Update()
+void Enemy::Update(Player& player, float deltaTime)
 {
     if (!isAlive_) return;
-    // 今は動かさない
+
+    VECTOR diff = VSub(player.GetPos(), pos_);
+    float dist = sqrtf(diff.x * diff.x + diff.z * diff.z); // XZ距離
+
+    if (dist <= detectRange_)
+    {
+        VECTOR dir = VGet(diff.x, 0.0f, diff.z);
+        dir = VNorm(dir);
+
+        pos_.x += dir.x * speed_ * deltaTime;
+        pos_.z += dir.z * speed_ * deltaTime;
+    }
+
+    CheckCollisionWithPlayer(player);
 }
 
 void Enemy::Draw()
 {
     if (!isAlive_) return;
+
+    // 敵本体
     DrawSphere3D(pos_, radius_, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+
+    // 追跡範囲の可視化（半透明の青色）
+    DrawSphere3D(pos_, detectRange_, 16, GetColor(0, 0, 255), GetColor(0, 0, 255), false);
 }
 
 void Enemy::Release() {}
@@ -37,7 +55,7 @@ void Enemy::TakeDamage(int damage)
     if (hp_ <= 0) isAlive_ = false;
 }
 
-void Enemy::CheckCollisionWithPlayer(Player& player)
+void Enemy::CheckCollisionWithPlayer(Player& player)const
 {
     VECTOR diff = VSub(pos_, player.GetPos());
     float dist = sqrtf(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);

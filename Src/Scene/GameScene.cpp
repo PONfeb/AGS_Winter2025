@@ -72,7 +72,7 @@ void GameScene::Update(void)
 
     stageA_->Update();
 
-    enemy_->Update();
+    enemy_->Update(*player_, 5.0f);
 
 	// ƒvƒŒƒCƒ„[
     player_->Update();

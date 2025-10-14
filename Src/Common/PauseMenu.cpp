@@ -16,10 +16,10 @@ PauseMenu::~PauseMenu()
 void PauseMenu::Init() 
 {
 
-	PauseContinue_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y - PAUSE_OFFSET_Y / static_cast<float>(2) - PAUSE_SPACE };
+	PauseContinue_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y - PAUSE_OFFSET_Y / 2 - PAUSE_SPACE };
 	PauseContinue_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
 
-	PauseExit_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y + PAUSE_OFFSET_Y / static_cast<float>(2) + PAUSE_SPACE };
+	PauseExit_.pos = { DEFAULT_POS_X, DEFAULT_POS_Y + PAUSE_OFFSET_Y / 2 + PAUSE_SPACE };
 	PauseExit_.size = { PAUSE_OFFSET_X, PAUSE_OFFSET_Y };
 
 	LoadInit();

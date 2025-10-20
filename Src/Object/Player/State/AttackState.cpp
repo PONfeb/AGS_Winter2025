@@ -1,8 +1,8 @@
+
 #include "AttackState.h"
 #include "IdleState.h"
 #include "MoveState.h"
 #include "JumpState.h"
-#include "../../../Application.h"
 
 AttackState::AttackState(ShotManager* shotMgr)
     : shotMgr_(shotMgr)

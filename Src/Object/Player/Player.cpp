@@ -1,11 +1,14 @@
-
 #include "Player.h"
+
+#include "../../Utility/Utility.h"
+#include "../../Application.h"
+
+#include"../../Manager/KeyManager.h"
+
 #include "State/IdleState.h"
 #include "State/MoveState.h"
 #include "State/JumpState.h"
 #include "State/AttackState.h"
-#include "../../Utility/Utility.h"
-#include "../../Application.h"
 
 Player::Player() : modelId_(-1), pos_(DEFAULT_POS), angles_{ 0,0,0 }, scales_(SCALES), jumpPow_(0.f), isJump_(false), hp_(250)
 {

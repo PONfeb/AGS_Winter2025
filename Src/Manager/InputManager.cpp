@@ -1,4 +1,4 @@
-#include <DxLib.h>
+
 #include "InputManager.h"
 
 InputManager* InputManager::instance_ = nullptr;
@@ -162,7 +162,7 @@ bool InputManager::IsLaterPressed(int key1, int key2) const
 	return true;
 }
 
-Vector2 InputManager::GetMousePos(void) const
+Vector2I InputManager::GetMousePos(void) const
 {
 	return mousePos_;
 }

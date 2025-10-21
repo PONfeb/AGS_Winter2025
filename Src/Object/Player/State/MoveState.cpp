@@ -13,31 +13,26 @@ void MoveState::Enter(Player& player)
 
 void MoveState::Update(Player& player)
 {
+
     // çUåÇ
-    if (Ins::input().IsTrgMouseLeft())
+    if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down)
     {
         player.ChangeState<AttackState>();
         return;
     }
 
-
     // à⁄ìÆì¸óÕ
-    VECTOR dir = VGet(0, 0, 0);
-    bool w = Ins::input().IsNew(KEY_INPUT_W);
-    bool s = Ins::input().IsNew(KEY_INPUT_S);
-    bool a = Ins::input().IsNew(KEY_INPUT_A);
-    bool d = Ins::input().IsNew(KEY_INPUT_D);
+    VECTOR dir = KEY::GetIns().GetLeftStickVec3D();
 
-    if (w && s) dir.z += (Ins::input().IsLaterPressed(KEY_INPUT_W, KEY_INPUT_S) ? 1 : -1);
-    else if (w) dir.z += 1;
-    else if (s) dir.z -= 1;
-
-    if (a && d) dir.x += (Ins::input().IsLaterPressed(KEY_INPUT_D, KEY_INPUT_A) ? 1 : -1);
-    else if (a) dir.x -= 1;
-    else if (d) dir.x += 1;
-
+    if (Utility::EqualsVZero(dir)) {
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FORWARD).now) { dir.z++; }
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK).now) { dir.z--; }
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT).now) { dir.x++; }
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT).now) { dir.x--; }
+    }
+	
     // à⁄ìÆèàóù
-    if (dir.x != 0.0f || dir.z != 0.0f)
+    if (!Utility::EqualsVZero(dir))
     {
         float len = sqrtf(dir.x * dir.x + dir.z * dir.z);
         dir.x /= len;
@@ -61,11 +56,12 @@ void MoveState::Update(Player& player)
     }
 
     // ÉWÉÉÉìÉv
-    if (Ins::input().IsTrgDown(KEY_INPUT_SPACE))
+    if (KEY::GetIns().GetInfo(KEY_TYPE::JUMP).down)
     {
         player.ChangeState<JumpState>();
         return;
     }
+
 }
 
 void MoveState::Exit(Player& player)

@@ -16,7 +16,7 @@ public:
     static constexpr float JUMP_POW = 20.0f;
     static constexpr float GRAVITY = 0.8f;
 
-    static constexpr int MOUSE_IDLE_THRESHOLD_FRAMES = 10; // 2•b * 60FPS
+    static constexpr int MOUSE_IDLE_THRESHOLD_FRAMES = 10;
 
     Player();
     ~Player();

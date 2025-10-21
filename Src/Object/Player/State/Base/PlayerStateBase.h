@@ -3,6 +3,8 @@
 
 #include "../../../../Common/Instance.h"
 #include <DxLib.h>
+#include"../../../../Utility/Utility.h"
+#include"../../../../Manager/KeyManager.h"
 
 class Player;
 

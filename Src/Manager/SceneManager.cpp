@@ -49,7 +49,7 @@ void SceneManager::Init()
     instance_->ChangeScene(TITLE); // 最初はタイトルシーンにしておく
 }
 
-void SceneManager::ChangeScene(SceneId id)
+void SceneManager::ChangeScene(SCENE_ID id)
 {
     // 現在のシーンを解放
     if (currentScene_)
@@ -103,7 +103,7 @@ void SceneManager::Update()
         int next = currentScene_->GetNextScene();
         if (next != -1 && next != currentSceneId_)
         {
-            ChangeScene(static_cast<SceneId>(next));
+            ChangeScene(static_cast<SCENE_ID>(next));
         }
     }
 }

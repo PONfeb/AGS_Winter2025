@@ -18,7 +18,7 @@ void GameOver::Update(void)
 {
 	if (Ins::input().IsTrgDown(KEY_INPUT_SPACE))
 	{
-		Ins::scene().ChangeScene(SceneManager::SceneId::TITLE);
+		Ins::scene().ChangeScene(SceneManager::SCENE_ID::TITLE);
 	}
 }
 

@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "SceneBase.h"
+#include "Base/SceneBase.h"
 #include "../Debug/Grid.h"
 #include "../Common/Camera.h"
 #include "../Common/PauseMenu.h"

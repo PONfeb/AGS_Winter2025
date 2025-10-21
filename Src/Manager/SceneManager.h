@@ -2,7 +2,7 @@
 #pragma once
 
 #include <chrono>
-#include "../Scene/SceneBase.h"
+#include "../Scene/Base/SceneBase.h"
 
 class Camera;
 
@@ -12,7 +12,7 @@ class SceneManager
 {
 public:
 
-    enum SceneId
+    enum SCENE_ID
     {
         TITLE,
         GAME,
@@ -25,7 +25,7 @@ public:
 
 	void Init();
 
-    void ChangeScene(SceneId id);
+    void ChangeScene(SCENE_ID id);
 
     void Update();
     void Draw();

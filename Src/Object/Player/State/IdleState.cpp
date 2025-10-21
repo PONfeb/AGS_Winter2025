@@ -11,22 +11,32 @@ void IdleState::Enter(Player& player)
 
 void IdleState::Update(Player& player)
 {
-
     // çUåÇ
-    if (Ins::input().IsTrgMouseLeft())
+    if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down)
     {
         player.ChangeState<AttackState>();
         return;
     }
 
-    if (Ins::input().IsNew(KEY_INPUT_W) || Ins::input().IsNew(KEY_INPUT_A) ||
-        Ins::input().IsNew(KEY_INPUT_S) || Ins::input().IsNew(KEY_INPUT_D))
+
+    // à⁄ìÆì¸óÕ
+    VECTOR dir = KEY::GetIns().GetLeftStickVec3D();
+
+    if (Utility::EqualsVZero(dir)) {
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FORWARD).now) { dir.z++; }
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK).now) { dir.z--; }
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT).now) { dir.x++; }
+        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT).now) { dir.x--; }
+    }
+
+    // à⁄ìÆèàóù
+    if (!Utility::EqualsVZero(dir))
     {
         player.ChangeState<MoveState>();
         return;
     }
 
-    if (Ins::input().IsTrgDown(KEY_INPUT_SPACE))
+    if (KEY::GetIns().GetInfo(KEY_TYPE::JUMP).down)
     {
         player.ChangeState<JumpState>();
         return;

@@ -463,6 +463,11 @@ bool Utility::EqualsVZero(const VECTOR& v1)
     return false;
 }
 
+Vector2 Utility::Normalize(const Vector2I& v)
+{
+    return v.ToVector2() / v.Length();
+}
+
 VECTOR Utility::Normalize(const Vector2& v)
 {
     VECTOR ret = VGet(

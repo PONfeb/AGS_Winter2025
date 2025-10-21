@@ -53,7 +53,7 @@ void PauseMenu::Update()
 	if (Ins::input().IsTrgMouseLeft())
 	{
 		if (CheckMousePointA(PauseContinue_)) {
-			Ins::scene().ChangeScene(SceneManager::SceneId::GAME);
+			Ins::scene().ChangeScene(SceneManager::SCENE_ID::GAME);
 		}
 		else if (CheckMousePointA(PauseExit_)) {
 			DxLib_End();

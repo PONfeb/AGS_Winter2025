@@ -16,10 +16,10 @@ struct Rect {
 
 struct Box
 {
-	Vector2 pos;		// 位置座標
-	Vector2 gimmicPos; 	// ギミックの位置座標
-	Vector2 size;		// サイズ（幅と高さ）
-	Vector2 area;		// 画像のでかさと判定が違うとき用
+	Vector2I pos;		// 位置座標
+	Vector2I gimmicPos; 	// ギミックの位置座標
+	Vector2I size;		// サイズ（幅と高さ）
+	Vector2I area;		// 画像のでかさと判定が違うとき用
 
 	Rect GetRect() const {
 		return {

@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "Common/Instance.h"
 
+#include "Manager/KeyManager.h"
+
+
 Application* Application::instance_ = nullptr;
 
 const std::string Application::PATH_DATA   = "Data/";
@@ -60,6 +63,7 @@ void Application::Init()
     // 入力初期化
     SetUseDirectInputFlag(true);
     InputManager::CreateInstance();
+    KEY::CreateIns();
 
     // シーン管理初期化
     SceneManager::CreateInstance();
@@ -81,6 +85,7 @@ void Application::Run()
 
             // 1. 入力更新
             Ins::input().Update();
+            KEY::GetIns().Update();
 
             // 2. シーン更新（NextScene もここで判定）
             Ins::scene().Update();
@@ -92,6 +97,7 @@ void Application::Run()
             CalcFrameRate();
 
             ScreenFlip();
+            ClearDrawScreen();
         }
     }
 }
@@ -107,6 +113,7 @@ void Application::Destroy()
 
     // InputManager解放
     Ins::input().Destroy();
+    KEY::DeleteIns();
 
     // インスタンス削除
     delete instance_;

@@ -3,6 +3,7 @@
 #include "../Manager/InputManager.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/SoundManager.h"
+#include "../Manager/KeyManager.h"
 
 namespace Ins
 {

@@ -37,7 +37,9 @@ void GameScene::Init(void)
     camera->ChangeMode(Camera::MODE::FOLLOW);
     camera->SetBeforeDrawFollow(player_); // ここでプレイヤーをセット
 
-    pauseMenu_.Init();
+    pauseMenu_ = new PauseMenu();
+    pauseMenu_->Init();
+
     wasPauseVisible_ = false;
 }
 
@@ -45,9 +47,9 @@ void GameScene::Update(void)
 {
 
     // まず入力処理
-    pauseMenu_.Update(); // ポーズ画面の更新は必ず呼ぶ
+    pauseMenu_->Update(); // ポーズ画面の更新は必ず呼ぶ
 
-    if (pauseMenu_.IsVisible()) {
+    if (pauseMenu_->IsVisible()) {
         if (!wasPauseVisible_) {
             wasPauseVisible_ = true;
             // BGM停止など
@@ -127,7 +129,7 @@ void GameScene::Draw(void)
 
     shotMgr_->Draw();
 
-    pauseMenu_.Draw();
+    pauseMenu_->Draw();
 
 }
 
@@ -158,7 +160,9 @@ void GameScene::Release(void)
     delete shotMgr_;
     shotMgr_ = nullptr;
 
-	pauseMenu_.Release();
+    pauseMenu_->Release();
+    delete pauseMenu_;
+    pauseMenu_ = nullptr;
 
 }
 
@@ -177,7 +181,7 @@ void GameScene::CheckCollision()
             if (dist <= enemy_->GetRadius() + shot->GetCollisionRadius())
             {
                 enemy_->TakeDamage(shot->GetDamage());
-                shot->SetEnd(); // 弾を消す関数（既に作っていない場合は作る）
+                shot->SetEnd();
             }
         }
     }

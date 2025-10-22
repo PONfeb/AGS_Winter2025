@@ -2,14 +2,18 @@
 #pragma once
 
 #include "Base/SceneBase.h"
+
+#include "../Application.h"
+
 #include "../Debug/Grid.h"
+
 #include "../Common/Camera.h"
 #include "../Common/PauseMenu.h"
+
 #include "../Object/Stage/RoomType_A.h"
 #include "../Object/Player/Player.h"
 #include "../Object/Enemy/Enemy.h"
 #include "../Object/Shot/ShotManager.h"
-#include "../Application.h"
 
 class SceneManager;
 
@@ -50,7 +54,7 @@ private:
 	Camera* camera_;
 
 	// ポーズメニュー
-	PauseMenu pauseMenu_;
+	PauseMenu* pauseMenu_;
 
 	// ステージ
 	RoomType_A* stageA_;

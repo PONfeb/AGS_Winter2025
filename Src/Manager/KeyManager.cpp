@@ -1,3 +1,4 @@
+
 #include"KeyManager.h"
 
 #include<DxLib.h>
@@ -231,4 +232,28 @@ VECTOR KeyManager::GetLeftStickVec3D(void) const
 {
 	Vector2 vec = GetLeftStickVec();
 	return VGet(vec.x, 0.0f, -vec.y);
+}
+
+bool KeyManager::IsLeftStickUpTriggered()
+{
+	Vector2 stick = GetLeftStickVec();
+
+	bool now = (stick.y < -0.5f);  // ã•ûŒü‚Éˆê’èˆÈã“|‚³‚ê‚Ä‚¢‚é
+	bool prev = (prevLeftStick_.y < -0.5f);
+
+	bool triggered = (now && !prev);
+	prevLeftStick_ = stick;
+	return triggered;
+}
+
+bool KeyManager::IsLeftStickDownTriggered()
+{
+	Vector2 stick = GetLeftStickVec();
+
+	bool now = (stick.y > 0.5f);
+	bool prev = (prevLeftStick_.y > 0.5f);
+
+	bool triggered = (now && !prev);
+	prevLeftStick_ = stick;
+	return triggered;
 }

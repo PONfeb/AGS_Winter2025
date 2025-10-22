@@ -53,6 +53,9 @@ public:
 	Vector2 GetLeftStickVec(void) const;
 	VECTOR GetLeftStickVec3D(void) const;
 
+	bool IsLeftStickUpTriggered();
+	bool IsLeftStickDownTriggered();
+
 	struct MOUCE_INFO
 	{
 		Vector2I now = {};
@@ -106,6 +109,9 @@ private:
 	MOUCE_INFO mouceInfo;
 	bool mouceFixed_;
 	const float MOUCE_THRESHOLD = 1.0f;
+
+	// 前フレームのスティック方向を保存
+	Vector2 prevLeftStick_ = { 0.0f, 0.0f };
 };
 
 using KEY = KeyManager;

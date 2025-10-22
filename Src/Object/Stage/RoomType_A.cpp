@@ -9,7 +9,7 @@ RoomType_A::~RoomType_A() {}
 
 void RoomType_A::Init()
 {
-    //stageModel_ = MV1LoadModel((Application::PATH_STAGE + "a.mv1").c_str());
+    stageModel_ = MV1LoadModel((Application::PATH_STAGE + "Stage.mv1").c_str());
 
     if (stageModel_ != -1)
     {

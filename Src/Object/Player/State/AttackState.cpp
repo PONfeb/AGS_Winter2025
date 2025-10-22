@@ -33,8 +33,8 @@ void AttackState::Update(Player& player)
         float len = sqrtf(moveDir.x * moveDir.x + moveDir.z * moveDir.z);
         moveDir.x /= len; moveDir.z /= len;
         VECTOR pos = player.GetPos();
-        pos.x += moveDir.x * Player::SPEED_MOVE;
-        pos.z += moveDir.z * Player::SPEED_MOVE;
+        pos.x += moveDir.x * Player::MOVE_SPEED;
+        pos.z += moveDir.z * Player::MOVE_SPEED;
         player.SetPos(pos);
     }
 

@@ -32,6 +32,7 @@ public:
     static const std::string PATH_PLAYER;
     static const std::string PATH_ENEMY;
     static const std::string PATH_UI;
+    static const std::string PATH_PAUSE;
     static const std::string PATH_SE;
     static const std::string PATH_BGM;
 

@@ -2,19 +2,17 @@
 #include "Application.h"
 #include "Common/Instance.h"
 
-#include "Manager/KeyManager.h"
-
-
 Application* Application::instance_ = nullptr;
 
 const std::string Application::PATH_DATA   = "Data/";
 const std::string Application::PATH_MODEL  = PATH_DATA + "Model/";
-const std::string Application::PATH_IMAGE  = PATH_DATA + "Image/ ";
+const std::string Application::PATH_IMAGE  = PATH_DATA + "Image/";
 const std::string Application::PATH_SOUND  = PATH_DATA + "Sound/";
 const std::string Application::PATH_STAGE  = PATH_MODEL + "Stage/";
 const std::string Application::PATH_PLAYER = PATH_MODEL + "Player/";
 const std::string Application::PATH_ENEMY  = PATH_MODEL + "Enemy/";
 const std::string Application::PATH_UI     = PATH_IMAGE + "UI/";
+const std::string Application::PATH_PAUSE  = PATH_UI    + "Pause/";
 const std::string Application::PATH_SE     = PATH_SOUND + "SE/";
 const std::string Application::PATH_BGM    = PATH_SOUND + "BGM/";
 
@@ -72,7 +70,7 @@ void Application::Init()
 
 void Application::Run()
 {
-    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+    while (ProcessMessage() == 0)
     {
         Sleep(1);
 

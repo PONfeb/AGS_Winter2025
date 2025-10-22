@@ -1,9 +1,14 @@
+
 #pragma once
 
 #include "Base/SceneBase.h"
+
 #include "../Application.h"
+#include "../Common/PauseMenu.h"
 
 class SceneManager;
+
+class PauseMenu;
 
 class TitleScene : public SceneBase
 {
@@ -18,5 +23,7 @@ public:
 	void Release(void) override;
 
 private:
+
+	PauseMenu pauseMenu_;
 
 };

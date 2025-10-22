@@ -1,5 +1,6 @@
 
 #include "GameClear.h"
+
 #include "../Common/Instance.h"
 
 GameClear::GameClear(void)
@@ -16,7 +17,7 @@ void GameClear::Init(void)
 
 void GameClear::Update(void)
 {
-	if (Ins::input().IsTrgDown(KEY_INPUT_SPACE))
+	if (KEY::GetIns().GetInfo(KEY_TYPE::JUMP).down)
 	{
 		Ins::scene().ChangeScene(SceneManager::SCENE_ID::TITLE);
 	}

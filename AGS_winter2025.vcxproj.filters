@@ -99,7 +99,7 @@
     <ClCompile Include="Src\Object\Shot\ShotManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Manager\ControllerManager.cpp">
+    <ClCompile Include="Src\Manager\KeyManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,10 +203,10 @@
     <ClInclude Include="Src\Object\Shot\ShotManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Manager\ControllerManager.h">
+    <ClInclude Include="Src\Object\Enemy\Base\EnemyStateBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Enemy\Base\EnemyStateBase.h">
+    <ClInclude Include="Src\Manager\KeyManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

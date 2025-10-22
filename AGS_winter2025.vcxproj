@@ -143,8 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Manager\ControllerManager.cpp" />
     <ClCompile Include="Src\Common\Vector2.cpp" />
+    <ClCompile Include="Src\Manager\KeyManager.cpp" />
     <ClCompile Include="Src\Object\Enemy\Enemy.cpp" />
     <ClCompile Include="Src\Object\Shot\ShotNomal.cpp" />
     <ClCompile Include="Src\Object\Shot\Base\ShotBase.cpp" />
@@ -174,8 +174,8 @@
     <ClCompile Include="Src\Object\Player\State\JumpState.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Manager\ControllerManager.h" />
     <ClInclude Include="Src\Common\Vector2.h" />
+    <ClInclude Include="Src\Manager\KeyManager.h" />
     <ClInclude Include="Src\Object\Enemy\Enemy.h" />
     <ClInclude Include="Src\Object\Enemy\Base\EnemyStateBase.h" />
     <ClInclude Include="Src\Object\Shot\ShotNomal.h" />

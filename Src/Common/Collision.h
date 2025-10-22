@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Vector2.h"
+
 #include <DxLib.h>
 
 // ‰æ‘œ‚Æ‚Ì”»’è‚ª“ÁŽê‚È“z—p

@@ -1,22 +1,27 @@
 
 #pragma once
 
+#include <DxLib.h>
+#include <memory>
+
 #include "State/Base/PlayerStateBase.h"
+
 #include "../Shot/ShotManager.h"
 #include "../../Common/AnimationController.h"
-#include <memory>
-#include <DxLib.h>
 
 class Player
 {
 public:
+
     static constexpr VECTOR DEFAULT_POS = { 0, -100, 0 };
     static constexpr VECTOR SCALES = { 1.f, 1.f, 1.f };
-    static constexpr float SPEED_MOVE = 10.0f;
+
+    static constexpr float MOVE_SPEED = 10.0f;
+
     static constexpr float JUMP_POW = 20.0f;
     static constexpr float GRAVITY = 0.8f;
 
-    static constexpr int MOUSE_IDLE_THRESHOLD_FRAMES = 10;
+    static constexpr int MOUSE_IDLE_THRESHOLD_FRAMES = 10.0f;
 
     Player();
     ~Player();

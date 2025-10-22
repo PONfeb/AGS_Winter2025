@@ -8,7 +8,7 @@ class RoomType_A : public StageBase
 public:
 
     // ステージ生成位置
-    static constexpr VECTOR DEFAULT_POS = { 0.0f, 100.0f, 0.0f };
+    static constexpr VECTOR DEFAULT_POS = { 0.0f, 0.0f, 0.0f };
 
     RoomType_A();
     ~RoomType_A();

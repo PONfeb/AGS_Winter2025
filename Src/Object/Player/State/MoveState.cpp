@@ -39,8 +39,8 @@ void MoveState::Update(Player& player)
         dir.z /= len;
 
         VECTOR pos = player.GetPos();
-        pos.x += dir.x * Player::SPEED_MOVE;
-        pos.z += dir.z * Player::SPEED_MOVE;
+        pos.x += dir.x * Player::MOVE_SPEED;
+        pos.z += dir.z * Player::MOVE_SPEED;
         player.SetPos(pos);
 
         // 攻撃中でなければキーボード方向に回転

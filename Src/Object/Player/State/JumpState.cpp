@@ -54,9 +54,9 @@ void JumpState::Update(Player& player)
 
         // 移動速度を掛けて位置更新
         player.SetPos({
-            player.GetPos().x + moveDir.x * Player::SPEED_MOVE,
+            player.GetPos().x + moveDir.x * Player::MOVE_SPEED,
             player.GetPos().y,
-            player.GetPos().z + moveDir.z * Player::SPEED_MOVE
+            player.GetPos().z + moveDir.z * Player::MOVE_SPEED
             });
 
         // 向きを更新

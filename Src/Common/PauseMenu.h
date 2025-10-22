@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "Collision.h"
@@ -6,6 +7,13 @@
 class PauseMenu {
 
 public:
+
+	enum  ButtonID 
+	{ 
+		CONTINUE, 
+		EXIT 
+	};
+
 	static constexpr int PAUSE_OFFSET_X = 400;
 	static constexpr int PAUSE_OFFSET_Y = 56;
 
@@ -23,14 +31,16 @@ public:
 	void Draw(void);             // 描画処理
 	void Release(void);
 
-	void Show();				// 表示状態にする
-	void Hide();				// 非表示状態にする
-	bool IsVisible() const;		// 表示中かどうか
+	void Show() { visible_ = true; selected_ = ButtonID::CONTINUE; }	// 表示状態にする
+	void Hide() { visible_ = false; }									// 非表示状態にする
+	bool IsVisible() const { return visible_; }							// 表示中かどうか
 
 private:
 
 	Box PauseContinue_;
 	Box PauseExit_;
+
+	ButtonID selected_;
 
 	bool visible_;
 
@@ -38,4 +48,7 @@ private:
 	int PauseContinueHoverImg_;
 	int PauseExitImg_;
 	int PauseExitHoverImg_;
+
+	bool IsGamepadUsed();
+
 };

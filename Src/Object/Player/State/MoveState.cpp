@@ -1,9 +1,11 @@
 
 #include "MoveState.h"
+
+#include "../../../Utility/Utility.h"
+
 #include "IdleState.h"
 #include "JumpState.h"
 #include "AttackState.h"
-#include "../../../Utility/Utility.h"
 
 void MoveState::Enter(Player& player)
 {

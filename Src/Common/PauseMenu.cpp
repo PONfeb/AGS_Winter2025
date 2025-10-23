@@ -42,6 +42,7 @@ void PauseMenu::LoadInit()
 
 void PauseMenu::Update()
 {
+
     // ポーズの表示切替
     if (KEY::GetIns().GetInfo(KEY_TYPE::GAME_END).down) {
         visible_ = false;
@@ -51,8 +52,7 @@ void PauseMenu::Update()
 
     // --- マウス優先処理 ---
     bool mouseHoverContinue = CheckMousePointA(PauseContinue_);
-    bool mouseHoverExit = CheckMousePointA(PauseExit_);
-
+    bool mouseHoverExit     = CheckMousePointA(PauseExit_);
 
     // マウスがどちらかに重なっている場合はマウス操作を優先
     if (mouseHoverContinue) selected_ = ButtonID::CONTINUE;
@@ -60,17 +60,13 @@ void PauseMenu::Update()
     else if (mouseHoverExit) selected_ = ButtonID::EXIT;
 
     // --- コントローラー・キーボード操作 ---
-    if (KEY::GetIns().IsLeftStickUpTriggered()) {
-        selected_ = ButtonID::CONTINUE;
-    }
-    else if (KEY::GetIns().IsLeftStickDownTriggered()) {
-        selected_ = ButtonID::EXIT;
-    }
+    if (KEY::GetIns().IsLeftStickUpTriggered()) selected_ = ButtonID::CONTINUE;
+
+    else if (KEY::GetIns().IsLeftStickDownTriggered()) selected_ = ButtonID::EXIT;
 
     // --- 決定入力（共通） ---
     if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down)
 	{
-
         if (selected_ == ButtonID::CONTINUE) {
             Hide(); // ポーズ解除
         }
@@ -78,8 +74,8 @@ void PauseMenu::Update()
 			DxLib_End();
 			exit(0);
         }
-
     }
+
 }
 
 void PauseMenu::Draw()

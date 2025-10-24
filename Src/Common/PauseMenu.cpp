@@ -45,7 +45,14 @@ void PauseMenu::Update()
 
     // ポーズの表示切替
     if (KEY::GetIns().GetInfo(KEY_TYPE::GAME_END).down) {
-        visible_ = false;
+        if (!IsVisible())
+        {
+            Show();
+        }
+        else
+        {
+            Hide();
+        }
     }
 
     if (!visible_) return;
@@ -56,6 +63,8 @@ void PauseMenu::Update()
 
     // マウスがどちらかに重なっている場合はマウス操作を優先
     if (mouseHoverContinue) selected_ = ButtonID::CONTINUE;
+    else if (KEY::GetIns().GetInfo(KEY_TYPE::UP).down) selected_ = ButtonID::CONTINUE;
+    else if (KEY::GetIns().GetInfo(KEY_TYPE::DOWN).down) selected_ = ButtonID::EXIT;
 
     else if (mouseHoverExit) selected_ = ButtonID::EXIT;
 
@@ -88,8 +97,8 @@ void PauseMenu::Draw()
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
     // 現在の選択状態を反映して描画
-    bool isHoverContinue = (selected_ == ButtonID::CONTINUE);
-    bool isHoverExit     = (selected_ == ButtonID::EXIT);
+    bool isHoverContinue = (CheckMousePointA(PauseContinue_));
+    bool isHoverExit     = (CheckMousePointA(PauseExit_));
 
     DrawRotaGraph(PauseContinue_.pos.x, PauseContinue_.pos.y, 1.0f, 0.0f,
         isHoverContinue ? PauseContinueHoverImg_ : PauseContinueImg_, TRUE);

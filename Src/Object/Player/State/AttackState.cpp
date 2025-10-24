@@ -56,7 +56,7 @@ void AttackState::Update(Player& player)
     }
 
     // UŒ‚ƒ{ƒ^ƒ“‰ğœ‚Åó‘Ô‘JˆÚ
-    if (!KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).now)
+    if (!KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).prev)
     {
         if (player.GetIsJump())
             player.ChangeState<JumpState>();

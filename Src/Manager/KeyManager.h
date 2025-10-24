@@ -36,6 +36,9 @@ public:
 		ATTACK,
 
 		INTARACT,
+
+		UP,
+		DOWN,
 		
 		// ƒƒjƒ…[‘€ì
 		GAME_END,

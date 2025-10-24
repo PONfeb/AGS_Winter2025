@@ -180,5 +180,5 @@ void SceneManager::Init3D(void)
 
     // ディレクショナルライト方向の設定(正規化されていなくても良い)
     // 正面から斜め下に向かったライト
-    ChangeLightTypeDir(VGet(-100.f, -200.f, -200.f));
+    ChangeLightTypeDir({ 0.00f, 100.0f, 100.0f });
 }

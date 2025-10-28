@@ -9,13 +9,12 @@ RoomType_A::~RoomType_A() {}
 
 void RoomType_A::Init()
 {
+
     stageModel_ = MV1LoadModel((Application::PATH_STAGE + "Stage.mv1").c_str());
 
-    if (stageModel_ != -1)
-    {
-        MV1SetScale(stageModel_, scales_);
-        MV1SetPosition(stageModel_, pos_); // Å© ñæé¶ìIÇ…ç¿ïWÇê›íË
-    }
+    MV1SetScale(stageModel_, scales_);
+    MV1SetPosition(stageModel_, pos_);
+
 }
 
 void RoomType_A::Update()

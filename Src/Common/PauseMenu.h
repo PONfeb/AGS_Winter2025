@@ -10,6 +10,8 @@ public:
 
 	enum  ButtonID 
 	{ 
+		NONE,
+
 		CONTINUE, 
 		EXIT 
 	};
@@ -48,7 +50,5 @@ private:
 	int PauseContinueHoverImg_;
 	int PauseExitImg_;
 	int PauseExitHoverImg_;
-
-	bool IsGamepadUsed();
 
 };

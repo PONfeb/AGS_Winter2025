@@ -24,6 +24,8 @@ void PauseMenu::Init()
 	
 	LoadInit();
 
+	selected_ = ButtonID::NONE;
+
 }
 
 void PauseMenu::LoadInit()
@@ -44,8 +46,8 @@ void PauseMenu::Update()
 {
 
     // ポーズの表示切替
-    if (KEY::GetIns().GetInfo(KEY_TYPE::GAME_END).down) {
-        if (!IsVisible())
+    if (KEY::GetIns().GetInfo(KEY_TYPE::MENU).down) {
+        if (!visible_)
         {
             Show();
         }
@@ -57,24 +59,19 @@ void PauseMenu::Update()
 
     if (!visible_) return;
 
-    // --- マウス優先処理 ---
-    bool mouseHoverContinue = CheckMousePointA(PauseContinue_);
-    bool mouseHoverExit     = CheckMousePointA(PauseExit_);
+	// --- マウス操作 ---
+    if (CheckMousePointA(PauseContinue_)) selected_ = ButtonID::CONTINUE;
+    else if (CheckMousePointA(PauseExit_)) selected_ = ButtonID::EXIT;
 
-    // マウスがどちらかに重なっている場合はマウス操作を優先
-    if (mouseHoverContinue) selected_ = ButtonID::CONTINUE;
-    else if (KEY::GetIns().GetInfo(KEY_TYPE::UP).down) selected_ = ButtonID::CONTINUE;
-    else if (KEY::GetIns().GetInfo(KEY_TYPE::DOWN).down) selected_ = ButtonID::EXIT;
+	// --- キーボード操作 ---
+    //if (KEY::GetIns().GetInfo(KEY_TYPE::UP).down) selected_ = ButtonID::CONTINUE;
+    //else if (KEY::GetIns().GetInfo(KEY_TYPE::DOWN).down) selected_ = ButtonID::EXIT;
 
-    else if (mouseHoverExit) selected_ = ButtonID::EXIT;
+    // --- コントローラー操作 ---
+    if (KEY::GetIns().GetInfo(KEY_TYPE::UP).down) selected_ = ButtonID::CONTINUE;
+	else if (KEY::GetIns().GetInfo(KEY_TYPE::DOWN).down) selected_ = ButtonID::EXIT;
 
-    // --- コントローラー・キーボード操作 ---
-    if (KEY::GetIns().IsLeftStickUpTriggered()) selected_ = ButtonID::CONTINUE;
-
-    else if (KEY::GetIns().IsLeftStickDownTriggered()) selected_ = ButtonID::EXIT;
-
-    // --- 決定入力（共通） ---
-    if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down)
+	if (KEY::GetIns().GetInfo(KEY_TYPE::APPLY).down)
 	{
         if (selected_ == ButtonID::CONTINUE) {
             Hide(); // ポーズ解除
@@ -89,7 +86,19 @@ void PauseMenu::Update()
 
 void PauseMenu::Draw()
 {
+
     if (!visible_) return;
+
+#ifdef _DEBUG
+    if (selected_ == ButtonID::CONTINUE)
+    {
+        DrawString(100, 300, "Continue", GetColor(255, 255, 255));
+    }
+	else if (selected_ == ButtonID::EXIT)
+	{
+		DrawString(100, 300, "Exit", GetColor(255, 255, 255));
+	}
+#endif // _DEBUG
 
     // 半透明背景
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
@@ -97,14 +106,20 @@ void PauseMenu::Draw()
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
     // 現在の選択状態を反映して描画
-    bool isHoverContinue = (CheckMousePointA(PauseContinue_));
-    bool isHoverExit     = (CheckMousePointA(PauseExit_));
+    bool isHoverContinue = (CheckMousePointA(PauseContinue_) || selected_ == ButtonID::CONTINUE);
+    bool isHoverExit     = (CheckMousePointA(PauseExit_) || selected_ == ButtonID::EXIT);
+
+    if (selected_ == ButtonID::NONE) {
+        isHoverContinue = false;
+        isHoverExit = false;
+    }
 
     DrawRotaGraph(PauseContinue_.pos.x, PauseContinue_.pos.y, 1.0f, 0.0f,
         isHoverContinue ? PauseContinueHoverImg_ : PauseContinueImg_, TRUE);
 
     DrawRotaGraph(PauseExit_.pos.x, PauseExit_.pos.y, 1.0f, 0.0f,
         isHoverExit ? PauseExitHoverImg_ : PauseExitImg_, TRUE);
+
 }
 
 void PauseMenu::Release(void)

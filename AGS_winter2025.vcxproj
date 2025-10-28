@@ -146,6 +146,7 @@
     <ClCompile Include="Src\Common\Vector2.cpp" />
     <ClCompile Include="Src\Manager\KeyManager.cpp" />
     <ClCompile Include="Src\Object\Enemy\Enemy.cpp" />
+    <ClCompile Include="Src\Object\Player\State\Base\PlayerStateBase.cpp" />
     <ClCompile Include="Src\Object\Shot\ShotNomal.cpp" />
     <ClCompile Include="Src\Object\Shot\Base\ShotBase.cpp" />
     <ClCompile Include="Src\Object\Shot\ShotManager.cpp" />

@@ -18,7 +18,6 @@ void IdleState::Update(Player& player)
         return;
     }
 
-
     // ˆÚ“®“ü—Í
     VECTOR dir = KEY::GetIns().GetLeftStickVec3D();
 

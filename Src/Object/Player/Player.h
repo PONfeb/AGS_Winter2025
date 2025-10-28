@@ -49,6 +49,7 @@ public:
 
     void UpdateRotationByMouse();
     void UpdateRotationByKeyboard(const VECTOR& moveDir);
+    void UpdateRotationByControllerStick();
 
     void TakeDamage(int damage);
 

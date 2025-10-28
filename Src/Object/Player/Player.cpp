@@ -58,7 +58,7 @@ void Player::Update()
     MV1SetPosition(modelId_, pos_);
     MV1SetRotationXYZ(modelId_, angles_);
 
-if (Ins::input().IsTrgMouseLeft() && shotMgr_)
+if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down && shotMgr_)
 {
     currentState_ = std::make_unique<AttackState>(shotMgr_);
     currentState_->Enter(*this);
@@ -86,6 +86,7 @@ void Player::Release()
 
 void Player::UpdateRotationByMouse()
 {
+
     int mouseX, mouseY;
     GetMousePoint(&mouseX, &mouseY);
 
@@ -109,6 +110,22 @@ void Player::UpdateRotationByKeyboard(const VECTOR& moveDir)
     float targetY = atan2f(-moveDir.x, -moveDir.z);
     VECTOR ang = GetAngles();
     ang.y = Utility::LerpAngle(ang.y, targetY, 0.3f);
+    SetAngles(ang);
+}
+
+void Player::UpdateRotationByControllerStick()
+{
+    // 右スティックの入力を取得
+    Vector2 rightStick = KEY::GetIns().GetRightStickVec();
+
+    // 入力がない場合は回転処理をスキップ
+    if (rightStick.x == 0.0f && rightStick.y == 0.0f) return;
+
+    // atan2f は y, x の順
+    float targetY = atan2f(-rightStick.x, -rightStick.y);
+
+    VECTOR ang = GetAngles();
+    ang.y = Utility::LerpAngle(ang.y, targetY, 0.3f); // 滑らかに補間
     SetAngles(ang);
 }
 

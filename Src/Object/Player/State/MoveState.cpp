@@ -15,7 +15,6 @@ void MoveState::Enter(Player& player)
 
 void MoveState::Update(Player& player)
 {
-
     // 攻撃
     if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down)
     {
@@ -23,35 +22,11 @@ void MoveState::Update(Player& player)
         return;
     }
 
-    // 移動入力
-    VECTOR dir = KEY::GetIns().GetLeftStickVec3D();
+    // 横移動（共通関数を使用）
+    bool isMoving = PlayerStateBase::Move(player);
 
-    if (Utility::EqualsVZero(dir)) {
-        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_FORWARD).now) { dir.z++; }
-        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_BACK).now) { dir.z--; }
-        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_RIGHT).now) { dir.x++; }
-        if (KEY::GetIns().GetInfo(KEY_TYPE::MOVE_LEFT).now) { dir.x--; }
-    }
-	
-    // 移動処理
-    if (!Utility::EqualsVZero(dir))
-    {
-        float len = sqrtf(dir.x * dir.x + dir.z * dir.z);
-        dir.x /= len;
-        dir.z /= len;
-
-        VECTOR pos = player.GetPos();
-        pos.x += dir.x * Player::MOVE_SPEED;
-        pos.z += dir.z * Player::MOVE_SPEED;
-        player.SetPos(pos);
-
-        // 攻撃中でなければキーボード方向に回転
-        if (!player.IsMouseControlActive())
-        {
-            player.UpdateRotationByKeyboard(dir);
-        }
-    }
-    else
+    // 移動入力がない場合はIdleに
+    if (!isMoving)
     {
         player.ChangeState<IdleState>();
         return;
@@ -63,7 +38,6 @@ void MoveState::Update(Player& player)
         player.ChangeState<JumpState>();
         return;
     }
-
 }
 
 void MoveState::Exit(Player& player)

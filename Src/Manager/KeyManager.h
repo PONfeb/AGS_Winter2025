@@ -40,12 +40,14 @@ public:
 
 		INTARACT,
 
+		// メニュー操作
+		MENU,
+
 		UP,
 		DOWN,
-		
-		// メニュー操作
-		GAME_END,
 
+		APPLY,
+		
 		MAX,
 	};
 

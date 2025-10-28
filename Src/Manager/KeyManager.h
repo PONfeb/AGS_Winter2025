@@ -1,9 +1,6 @@
-
 #pragma once
-
 #include<DxLib.h>
 #include<vector>
-
 #include"../Common/Vector2.h"
 
 class KeyManager

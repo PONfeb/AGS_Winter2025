@@ -45,6 +45,9 @@ public:
 
 	void CheckCollision();
 
+	void FieldCollision(Player* player);
+	void WallCollision(Player* player);
+
 private:
 
 	// ƒOƒŠƒbƒhü

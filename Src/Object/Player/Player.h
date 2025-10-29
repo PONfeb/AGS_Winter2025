@@ -30,10 +30,17 @@ public:
     void Update();
     void Draw();
 
+    void DrawDebug();
+
     void Release();
 
     VECTOR GetPos() const { return pos_; }
     void SetPos(const VECTOR& pos) { pos_ = pos; }
+
+    // カプセルの当たり判定を取得
+    const VECTOR& GetStartCapsulePos(void) const { return startCapsulePos_; }
+    const VECTOR& GetEndCapsulePos(void) const { return endCapsulePos_; }
+    const float& GetCapsuleRadius(void) const { return capsuleRadius_; }
 
     VECTOR GetAngles() const { return angles_; }
     void SetAngles(const VECTOR& angles) { angles_ = angles; }
@@ -70,6 +77,7 @@ public:
     void SetShotManager(ShotManager* mgr) { shotMgr_ = mgr; }
 
     float collisionRadius_ = 24.0f; // 判定用半径
+
 private:
 
     ShotManager* shotMgr_;
@@ -77,6 +85,10 @@ private:
     VECTOR pos_;
     VECTOR angles_;
     VECTOR scales_;
+
+	VECTOR startCapsulePos_; // カプセル当たり判定開始位置
+	VECTOR endCapsulePos_;   // カプセル当たり判定終了位置
+	float capsuleRadius_;    // カプセル当たり判定半径
 
 	VECTOR playerScreenPos;
 

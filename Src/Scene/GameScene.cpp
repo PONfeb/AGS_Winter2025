@@ -79,6 +79,10 @@ void GameScene::Update(void)
 	// プレイヤー
     player_->Update();
 
+    // ステージ当たり判定
+    FieldCollision(player_);
+    WallCollision(player_);
+
     shotMgr_->Update();
 
     CheckCollision();
@@ -113,6 +117,8 @@ void GameScene::Draw(void)
     stageA_->Draw();
 
 	player_->Draw();
+
+	player_->DrawDebug();
 
     enemy_->Draw();
 
@@ -196,4 +202,65 @@ void GameScene::CheckCollision()
             player_->TakeDamage(1); // 衝突時のダメージ
         }
     }
+}
+
+//------------------------------------------------------
+// 床との当たり判定（落下防止）
+//------------------------------------------------------
+void GameScene::FieldCollision(Player* player)
+{
+    VECTOR pos = player->GetPos();
+
+    // カプセルの足元をチェックして地面の高さを取得
+    VECTOR startPos = VAdd(pos, player->GetStartCapsulePos());
+    VECTOR endPos = VAdd(pos, player->GetEndCapsulePos());
+
+    int modelId = stageA_->GetModelId();
+    MV1_COLL_RESULT_POLY res = MV1CollCheck_Line(modelId, -1, startPos, endPos);
+
+    if (res.HitFlag)
+    {
+        float groundY = res.HitPosition.y;
+
+        // プレイヤーが地面より下に落ちていたら補正するだけ
+        if (pos.y < groundY)
+        {
+            pos.y = groundY;
+            player->SetPos(pos);
+        }
+    }
+
+    // Y方向の速度や isJump は JumpState に任せる
+}
+
+//------------------------------------------------------
+// 壁との当たり判定（カプセル）
+//------------------------------------------------------
+void GameScene::WallCollision(Player* player)
+{
+
+    VECTOR pos = player->GetPos();
+
+    // カプセルのワールド座標を算出
+    VECTOR capStart = VAdd(pos, player->GetStartCapsulePos());
+    VECTOR capEnd = VAdd(pos, player->GetEndCapsulePos());
+    float  radius = player->GetCapsuleRadius();
+
+    // ステージモデルとのカプセル衝突チェック
+    auto hits = MV1CollCheck_Capsule(stageA_->GetModelId(), -1, capStart, capEnd, radius);
+
+    for (int i = 0; i < hits.HitNum; i++)
+    {
+        auto hit = hits.Dim[i];
+
+        // 当たっていたら、法線方向に押し戻す
+        pos = VAdd(pos, VScale(hit.Normal, 1.0f));
+    }
+
+    // 結果を反映
+    player->SetPos(pos);
+
+    // 結果の破棄
+    MV1CollResultPolyDimTerminate(hits);
+
 }

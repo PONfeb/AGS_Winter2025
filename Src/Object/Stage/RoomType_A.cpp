@@ -15,6 +15,8 @@ void RoomType_A::Init()
     MV1SetScale(stageModel_, scales_);
     MV1SetPosition(stageModel_, pos_);
 
+    MV1SetupCollInfo(stageModel_, -1);
+
 }
 
 void RoomType_A::Update()
@@ -36,4 +38,9 @@ void RoomType_A::Release()
         MV1DeleteModel(stageModel_);
         stageModel_ = -1;
     }
+}
+
+int RoomType_A::GetModelId(void)
+{
+    return stageModel_;
 }

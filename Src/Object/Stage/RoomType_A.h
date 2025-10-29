@@ -18,6 +18,8 @@ public:
     void Draw() override;
     void Release() override;
 
+    int GetModelId(void);
+
 private:
 
     int stageModel_;

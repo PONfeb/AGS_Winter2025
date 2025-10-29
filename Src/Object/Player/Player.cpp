@@ -36,7 +36,6 @@ void Player::Init(const char* modelPath)
     //}
 
     MV1SetPosition(modelId_, pos_);
-    MV1SetScale(modelId_, scales_);
 
     animationController_ = std::make_unique<AnimationController>(modelId_);
 
@@ -48,6 +47,11 @@ void Player::Init(const char* modelPath)
     animationController_->AddInFbx(4, 30.f, 7);  // SHOT
     animationController_->AddInFbx(5, 30.f, 16);  // SHOT
     animationController_->AddInFbx(6, 30.f, 17);  // SHOT
+
+    // 当たり判定を作成
+    startCapsulePos_ = { 0.0f, 180.f, 0.0f };
+    endCapsulePos_ = { 0.0f, 30.0f, 0.0f };
+    capsuleRadius_ = 40.0f;
 
     // 初期状態 Idle
     ChangeState<IdleState>();
@@ -77,6 +81,18 @@ void Player::Draw()
     MV1DrawModel(modelId_);
 
     DrawSphere3D(pos_, collisionRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
+}
+
+void Player::DrawDebug()
+{
+    // ローカル → ワールド変換
+    VECTOR startWorld = VAdd(pos_, startCapsulePos_);
+    VECTOR endWorld = VAdd(pos_, endCapsulePos_);
+
+    // カプセル可視化（スフィア + ライン）
+    DrawSphere3D(startWorld, capsuleRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
+    DrawSphere3D(endWorld, capsuleRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
+    DrawLine3D(startWorld, endWorld, GetColor(0, 255, 0));
 }
 
 void Player::Release()

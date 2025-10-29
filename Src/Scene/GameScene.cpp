@@ -254,7 +254,7 @@ void GameScene::WallCollision(Player* player)
         auto hit = hits.Dim[i];
 
         // “–‚½‚Á‚Ä‚¢‚½‚çA–@ü•ûŒü‚É‰Ÿ‚µ–ß‚·
-        pos = VAdd(pos, VScale(hit.Normal, 1.0f));
+        pos = VAdd(pos, VScale(hit.Normal, 2.0f));
     }
 
     // Œ‹‰Ê‚ğ”½‰f

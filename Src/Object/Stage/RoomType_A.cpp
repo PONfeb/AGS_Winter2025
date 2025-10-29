@@ -10,7 +10,7 @@ RoomType_A::~RoomType_A() {}
 void RoomType_A::Init()
 {
 
-    stageModel_ = MV1LoadModel((Application::PATH_STAGE + "Stage.mv1").c_str());
+    stageModel_ = MV1LoadModel((Application::PATH_STAGE + "Stage_Base_3.mv1").c_str());
 
     MV1SetScale(stageModel_, scales_);
     MV1SetPosition(stageModel_, pos_);
@@ -18,7 +18,7 @@ void RoomType_A::Init()
     MV1SetupCollInfo(stageModel_, -1);
 
 }
-
+        
 void RoomType_A::Update()
 {
 }

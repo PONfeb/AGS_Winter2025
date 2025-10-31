@@ -26,7 +26,7 @@ public:
     Player();
     ~Player();
 
-    void Init(const char* modelPath);
+    void Init();
     void Update();
     void Draw();
 

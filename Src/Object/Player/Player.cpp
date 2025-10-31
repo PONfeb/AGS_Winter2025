@@ -20,7 +20,7 @@ Player::~Player()
     if (modelId_ != -1) MV1DeleteModel(modelId_);
 }
 
-void Player::Init(const char* modelPath)
+void Player::Init()
 {
     modelId_ = MV1LoadModel((Application::PATH_PLAYER + "player.mv1").c_str());
 

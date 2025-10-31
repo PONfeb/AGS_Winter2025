@@ -19,7 +19,7 @@ void GameScene::Init(void)
 
     // プレイヤーを先に作成
     player_ = new Player();
-    player_->Init("player.mv1");
+    player_->Init();
 
     enemy_ = new Enemy();
     enemy_->Init(VGet(0, 0, 200)); // プレイヤーの前方に配置

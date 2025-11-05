@@ -10,7 +10,7 @@ RoomType_A::~RoomType_A() {}
 void RoomType_A::Init()
 {
 
-    stageModel_ = MV1LoadModel((Application::PATH_STAGE + "StageBlend5.mv1").c_str());
+    stageModel_ = MV1LoadModel((Application::PATH_STAGE + "Stage1_2.mv1").c_str());
 
     MV1SetScale(stageModel_, scales_);
     MV1SetPosition(stageModel_, pos_);

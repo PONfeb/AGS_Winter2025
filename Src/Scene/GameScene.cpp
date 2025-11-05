@@ -12,6 +12,7 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
+
 #ifdef _DEBUG
     grid_ = new Grid();
     grid_->Init();
@@ -105,7 +106,7 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 
-    DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(255, 255, 255), TRUE);
+    DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(0, 0, 0), TRUE);
     DrawString(0, 0, "Game Scene", GetColor(0, 0, 0));
     
 #ifdef _DEBUG
@@ -204,11 +205,10 @@ void GameScene::CheckCollision()
     }
 }
 
-//------------------------------------------------------
-// 床との当たり判定（落下防止）
-//------------------------------------------------------
+// 床との判定
 void GameScene::FieldCollision(Player* player)
 {
+
     VECTOR pos = player->GetPos();
 
     // カプセルの足元をチェックして地面の高さを取得
@@ -216,11 +216,11 @@ void GameScene::FieldCollision(Player* player)
     VECTOR endPos = VAdd(pos, player->GetEndCapsulePos());
 
     int modelId = stageA_->GetModelId();
-    MV1_COLL_RESULT_POLY res = MV1CollCheck_Line(modelId, -1, startPos, endPos);
+    MV1_COLL_RESULT_POLY Coll_Field = MV1CollCheck_Line(modelId, -1, startPos, endPos);
 
-    if (res.HitFlag)
+    if (Coll_Field.HitFlag)
     {
-        float groundY = res.HitPosition.y;
+        float groundY = Coll_Field.HitPosition.y;
 
         // プレイヤーが地面より下に落ちていたら補正するだけ
         if (pos.y < groundY)
@@ -230,12 +230,9 @@ void GameScene::FieldCollision(Player* player)
         }
     }
 
-    // Y方向の速度や isJump は JumpState に任せる
 }
 
-//------------------------------------------------------
-// 壁との当たり判定（カプセル）
-//------------------------------------------------------
+// 壁との判定
 void GameScene::WallCollision(Player* player)
 {
 

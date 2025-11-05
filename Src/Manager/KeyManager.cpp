@@ -1,10 +1,11 @@
 
-#include"KeyManager.h"
+#include "KeyManager.h"
 
 #include<DxLib.h>
 
-#include"../Application.h"
-#include"../Utility/Utility.h"
+#include "../Application.h"
+
+#include "../Utility/Utility.h"
 
 KeyManager* KeyManager::ins = nullptr;
 

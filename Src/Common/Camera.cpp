@@ -5,7 +5,7 @@
 #include "../Utility/Utility.h"
 #include <EffekseerForDXLib.h>
 
-Camera::Camera(void)
+Camera::Camera(void) : pos_(-1), angles_(-1), mode_(MODE::NONE)
 {
 }
 
@@ -15,8 +15,10 @@ Camera::~Camera()
 
 void Camera::Init(void)
 {
+
 	pos_ = DEFAULT_POS;
 	angles_ = DEFAULT_ANGLES;
+
 }
 
 void Camera::Update(void)
@@ -25,6 +27,7 @@ void Camera::Update(void)
 
 void Camera::SetBeforeDraw(void)
 {
+
    // クリップ距離を設定する(SetDrawScreenでリセットされる)
    SetCameraNearFar(CAMERA_NEAR, CAMERA_FAR);
 
@@ -41,7 +44,6 @@ void Camera::SetBeforeDraw(void)
        break;
    }
 
-   SetCameraPositionAndAngle(pos_, angles_.x, angles_.y, angles_.z);
 }
 
 void Camera::DrawDebug(void)
@@ -68,7 +70,15 @@ void Camera::Release(void)
 
 void Camera::SetBeforeDrawFixedPoint(void)
 {
-	// 何もしない
+
+	// カメラの設定(位置と角度による制御)
+	SetCameraPositionAndAngle(
+		pos_,
+		angles_.x,
+		angles_.y,
+		angles_.z
+	);
+
 }
 void Camera::SetBeforeDrawFree(void)
 {
@@ -76,20 +86,18 @@ void Camera::SetBeforeDrawFree(void)
 
 void Camera::SetBeforeDrawFollow(Player* player)
 {
-	player_ = player;
+}
 
-	if (player_ != nullptr)
-	{
-		VECTOR playerPos = player_->GetPos();
-		pos_.x = playerPos.x;
-		pos_.z = playerPos.z - 1000.0f;
-	}
+void Camera::SetFollow(Player* player)
+{
+	player_ = player;
 }
 
 void Camera::ChangeMode(MODE mode)
 {
 	// カメラモードの変更
 	mode_ = mode;
+
 	// 変更時の初期化処理
 	switch (mode_)
 	{

@@ -42,13 +42,11 @@ SceneManager& SceneManager::GetInstance()
 
 void SceneManager::Init()
 {
-    // カメラ機能の初期化
-    camera_ = new Camera();
-    camera_->Init();
 
     Init3D();
 
     instance_->ChangeScene(TITLE); // 最初はタイトルシーンにしておく
+
 }
 
 void SceneManager::ChangeScene(SCENE_ID id)
@@ -112,19 +110,17 @@ void SceneManager::Update()
 
 void SceneManager::Draw()
 {
+
     SetDrawScreen(DX_SCREEN_BACK);
 
     // 画面を初期化
     ClearDrawScreen();
-
-    camera_->SetBeforeDraw();
 
     if (currentScene_)
     {
         currentScene_->Draw();
     }
 
-    camera_->DrawDebug();
 }
 
 void SceneManager::Destroy()
@@ -135,10 +131,6 @@ void SceneManager::Destroy()
         delete currentScene_;
         currentScene_ = nullptr;
     }
-
-    // シーンの解放
-    camera_->Release();
-    delete camera_;
 
     delete instance_;
     instance_ = nullptr;

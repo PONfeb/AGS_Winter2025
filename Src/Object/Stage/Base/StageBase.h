@@ -9,7 +9,7 @@ class StageBase
 public:
 
     // ƒ‚ƒfƒ‹‚Ì‘å‚«‚³
-    static constexpr VECTOR STAGE_SCALES = { 2.f, 2.f, 2.f };
+    static constexpr VECTOR STAGE_SCALES = { 1.5f, 1.5f, 1.5f };
 
     StageBase() {}
     virtual ~StageBase() {}

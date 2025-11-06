@@ -14,29 +14,30 @@ void GameScene::Init(void)
 {
 
 #ifdef _DEBUG
-    grid_ = new Grid();
-    grid_->Init();
+    //grid_ = new Grid();
+    //grid_->Init();
 #endif
 
-    // プレイヤーを先に作成
+    // プレイヤー
     player_ = new Player();
     player_->Init();
 
+    // カメラ
+    camera_ = new Camera();
+	camera_->Init();
+    camera_->SetFollow(player_);
+	camera_->ChangeMode(Camera::MODE::FIXED_POINT);
+
     enemy_ = new Enemy();
-    enemy_->Init(VGet(0, 0, 200)); // プレイヤーの前方に配置
+    enemy_->Init(VGet(0, 0, 200));
 
     // ステージ
-    stageA_ = new RoomType_A();
-    stageA_->Init();
+    stage1_1 = new Stage1_1();
+    stage1_1->Init();
 
 	// プレイヤーにショットマネージャーをセット
 	shotMgr_ = new ShotManager();
 	player_->SetShotManager(shotMgr_);
-
-    // カメラ
-    auto camera = Ins::scene().GetCamera();
-    camera->ChangeMode(Camera::MODE::FOLLOW);
-    camera->SetBeforeDrawFollow(player_); // ここでプレイヤーをセット
 
     pauseMenu_ = new PauseMenu();
     pauseMenu_->Init();
@@ -66,14 +67,14 @@ void GameScene::Update(void)
     }
 
 #ifdef _DEBUG
-    // グリッド線
-    grid_->Update();
+    //// グリッド線
+    //grid_->Update();
 #endif // _DEBUG
 
     // カメラ更新（SceneManager のカメラを使う）
-    Ins::scene().GetCamera()->Update();
+    camera_->Update();
 
-    stageA_->Update();
+    stage1_1->Update();
 
     enemy_->Update(*player_, 5.0f);
 
@@ -110,12 +111,15 @@ void GameScene::Draw(void)
     DrawString(0, 0, "Game Scene", GetColor(0, 0, 0));
     
 #ifdef _DEBUG
-    // グリッド線
-    grid_->Draw();
+    //// グリッド線
+    //grid_->Draw();
 #endif // _DEBUG
 
+    camera_->SetBeforeDraw();
+	camera_->DrawDebug();
+
     // カメラの設定は SceneManager 側でやっているのでここでは不要
-    stageA_->Draw();
+    stage1_1->Draw();
 
 	player_->Draw();
 
@@ -144,15 +148,19 @@ void GameScene::Release(void)
 {
 
 #ifdef _DEBUG
-    // グリッド線
-    grid_->Release();
-    delete grid_;
-    grid_ = nullptr;
+    //// グリッド線
+    //grid_->Release();
+    //delete grid_;
+    //grid_ = nullptr;
 #endif // _DEBUG
 
-    stageA_->Release();
-    delete stageA_;
-    stageA_ = nullptr;
+    camera_->Release();
+	delete camera_;
+	camera_ = nullptr;
+
+    stage1_1->Release();
+    delete stage1_1;
+    stage1_1       = nullptr;
 
 	// プレイヤー
 	player_->Release();
@@ -215,7 +223,7 @@ void GameScene::FieldCollision(Player* player)
     VECTOR startPos = VAdd(pos, player->GetStartCapsulePos());
     VECTOR endPos = VAdd(pos, player->GetEndCapsulePos());
 
-    int modelId = stageA_->GetModelId();
+    int modelId = stage1_1->GetModelId();
     MV1_COLL_RESULT_POLY Coll_Field = MV1CollCheck_Line(modelId, -1, startPos, endPos);
 
     if (Coll_Field.HitFlag)
@@ -244,7 +252,7 @@ void GameScene::WallCollision(Player* player)
     float  radius = player->GetCapsuleRadius();
 
     // ステージモデルとのカプセル衝突チェック
-    auto hits = MV1CollCheck_Capsule(stageA_->GetModelId(), -1, capStart, capEnd, radius);
+    auto hits = MV1CollCheck_Capsule(stage1_1->GetModelId(), -1, capStart, capEnd, radius);
 
     for (int i = 0; i < hits.HitNum; i++)
     {

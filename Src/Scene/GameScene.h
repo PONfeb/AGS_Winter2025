@@ -10,7 +10,7 @@
 #include "../Common/Camera.h"
 #include "../Common/PauseMenu.h"
 
-#include "../Object/Stage/RoomType_A.h"
+#include "../Object/Stage/Stage1_1.h"
 #include "../Object/Player/Player.h"
 #include "../Object/Enemy/Enemy.h"
 #include "../Object/Shot/ShotManager.h"
@@ -60,7 +60,7 @@ private:
 	PauseMenu* pauseMenu_;
 
 	// ステージ
-	RoomType_A* stageA_;
+	Stage1_1* stage1_1;
 
 	// プレイヤー
 	Player* player_;

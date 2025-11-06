@@ -24,6 +24,14 @@ void Player::Init()
 {
     modelId_ = MV1LoadModel((Application::PATH_PLAYER + "player.mv1").c_str());
 
+    // マテリアルの数を取得
+    int num = MV1GetMaterialNum(modelId_);
+    for (int i = 1; i < num; i++)
+    {
+        // 0は地面なので、1から設定する
+        MV1SetMaterialEmiColor(modelId_, i, GetColorF(0.2f, 0.2f, 0.2f, 1.0f));
+    }
+
     //if (modelId_ == -1) {
     //    printfDx("Player model load failed\n");
     //}

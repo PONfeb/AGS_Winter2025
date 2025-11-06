@@ -13,22 +13,23 @@ public:
 	enum class MODE
 	{
 		NONE,
+
 		FIXED_POINT, // 定点カメラ
 		FREE,		 // フリーモード
 		FOLLOW,		 // 追従モード
 	};
 
 	// カメラの初期位置
-	static constexpr VECTOR DEFAULT_POS = { 0.0f, 700.0f, -1000.0f };
+	static constexpr VECTOR DEFAULT_POS = { 0.0f, 1600.0f, -2100.0f };
 
 	// カメラの初期角度
-	static constexpr VECTOR DEFAULT_ANGLES = { 40.0f * DX_PI_F / 180.0f, 0.0f, 0.0f };
+	static constexpr VECTOR DEFAULT_ANGLES = { 45.0f * DX_PI_F / 180.0f, 0.0f, 0.0f };
 
 	// カメラクリップ：NEAR
-	static constexpr float CAMERA_NEAR = 3.0f;
+	static constexpr float CAMERA_NEAR = 1000.0f;
 
 	// カメラクリップ：FAR
-	static constexpr float CAMERA_FAR = 15000.0f;
+	static constexpr float CAMERA_FAR = 5500.0f;
 
 	// コンストラクタ
 	Camera(void);
@@ -54,6 +55,8 @@ public:
 	void ChangeMode(MODE mode);
 
 	void SetBeforeDrawFollow(Player* player);
+
+	void SetFollow(Player* player);
 
 private:
 

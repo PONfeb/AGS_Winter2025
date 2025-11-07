@@ -3,7 +3,7 @@
 #include "Base/StageBase.h"
 #include <DxLib.h>
 
-class Stage1_1 : public StageBase
+class Stage3_3 : public StageBase
 {
 public:
 

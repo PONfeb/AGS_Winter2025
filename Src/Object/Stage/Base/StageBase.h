@@ -1,22 +1,16 @@
 
 #pragma once
 
-#include <DxLib.h>
+#include <string>
 
-class StageBase
+class StageBase 
 {
-
 public:
 
-    // ƒ‚ƒfƒ‹‚Ì‘å‚«‚³
-    static constexpr VECTOR STAGE_SCALES = { 1.5f, 1.5f, 1.5f };
-
-    StageBase() {}
-    virtual ~StageBase() {}
-
+    virtual ~StageBase() = 0;
     virtual void Init() = 0;
     virtual void Update() = 0;
     virtual void Draw() = 0;
-    virtual void Release() = 0;
+    //virtual bool IsClear() const = 0;
 
 };

@@ -32,8 +32,8 @@ void GameScene::Init(void)
     enemy_->Init(VGet(0, 0, 200));
 
     // ステージ
-    stage1_1 = new Stage1_1();
-    stage1_1->Init();
+    //stage1_1 = new Stage1_1();
+    //stage1_1->Init();
 
 	// プレイヤーにショットマネージャーをセット
 	shotMgr_ = new ShotManager();
@@ -74,7 +74,7 @@ void GameScene::Update(void)
     // カメラ更新（SceneManager のカメラを使う）
     camera_->Update();
 
-    stage1_1->Update();
+    //stage1_1->Update();
 
     enemy_->Update(*player_, 5.0f);
 
@@ -118,8 +118,7 @@ void GameScene::Draw(void)
     camera_->SetBeforeDraw();
 	camera_->DrawDebug();
 
-    // カメラの設定は SceneManager 側でやっているのでここでは不要
-    stage1_1->Draw();
+    //stage1_1->Draw();
 
 	player_->Draw();
 
@@ -158,9 +157,10 @@ void GameScene::Release(void)
 	delete camera_;
 	camera_ = nullptr;
 
-    stage1_1->Release();
-    delete stage1_1;
-    stage1_1       = nullptr;
+    //stage1_1->Release();
+    //delete stage1_1;
+    //stage1_1 = nullptr;
+
 
 	// プレイヤー
 	player_->Release();
@@ -214,58 +214,58 @@ void GameScene::CheckCollision()
 }
 
 // 床との判定
-void GameScene::FieldCollision(Player* player)
-{
-
-    VECTOR pos = player->GetPos();
-
-    // カプセルの足元をチェックして地面の高さを取得
-    VECTOR startPos = VAdd(pos, player->GetStartCapsulePos());
-    VECTOR endPos = VAdd(pos, player->GetEndCapsulePos());
-
-    int modelId = stage1_1->GetModelId();
-    MV1_COLL_RESULT_POLY Coll_Field = MV1CollCheck_Line(modelId, -1, startPos, endPos);
-
-    if (Coll_Field.HitFlag)
-    {
-        float groundY = Coll_Field.HitPosition.y;
-
-        // プレイヤーが地面より下に落ちていたら補正するだけ
-        if (pos.y < groundY)
-        {
-            pos.y = groundY;
-            player->SetPos(pos);
-        }
-    }
-
-}
+//void GameScene::FieldCollision(Player* player)
+//{
+//
+//    VECTOR pos = player->GetPos();
+//
+//    // カプセルの足元をチェックして地面の高さを取得
+//    VECTOR startPos = VAdd(pos, player->GetStartCapsulePos());
+//    VECTOR endPos = VAdd(pos, player->GetEndCapsulePos());
+//
+//    int modelId = stage1_1->GetModelId();
+//    MV1_COLL_RESULT_POLY Coll_Field = MV1CollCheck_Line(modelId, -1, startPos, endPos);
+//
+//    if (Coll_Field.HitFlag)
+//    {
+//        float groundY = Coll_Field.HitPosition.y;
+//
+//        // プレイヤーが地面より下に落ちていたら補正するだけ
+//        if (pos.y < groundY)
+//        {
+//            pos.y = groundY;
+//            player->SetPos(pos);
+//        }
+//    }
+//
+//}
 
 // 壁との判定
-void GameScene::WallCollision(Player* player)
-{
-
-    VECTOR pos = player->GetPos();
-
-    // カプセルのワールド座標を算出
-    VECTOR capStart = VAdd(pos, player->GetStartCapsulePos());
-    VECTOR capEnd = VAdd(pos, player->GetEndCapsulePos());
-    float  radius = player->GetCapsuleRadius();
-
-    // ステージモデルとのカプセル衝突チェック
-    auto hits = MV1CollCheck_Capsule(stage1_1->GetModelId(), -1, capStart, capEnd, radius);
-
-    for (int i = 0; i < hits.HitNum; i++)
-    {
-        auto hit = hits.Dim[i];
-
-        // 当たっていたら、法線方向に押し戻す
-        pos = VAdd(pos, VScale(hit.Normal, 2.0f));
-    }
-
-    // 結果を反映
-    player->SetPos(pos);
-
-    // 結果の破棄
-    MV1CollResultPolyDimTerminate(hits);
-
-}
+//void GameScene::WallCollision(Player* player)
+//{
+//
+//    VECTOR pos = player->GetPos();
+//
+//    // カプセルのワールド座標を算出
+//    VECTOR capStart = VAdd(pos, player->GetStartCapsulePos());
+//    VECTOR capEnd = VAdd(pos, player->GetEndCapsulePos());
+//    float  radius = player->GetCapsuleRadius();
+//
+//    // ステージモデルとのカプセル衝突チェック
+//    auto hits = MV1CollCheck_Capsule(stage1_1->GetModelId(), -1, capStart, capEnd, radius);
+//
+//    for (int i = 0; i < hits.HitNum; i++)
+//    {
+//        auto hit = hits.Dim[i];
+//
+//        // 当たっていたら、法線方向に押し戻す
+//        pos = VAdd(pos, VScale(hit.Normal, 2.0f));
+//    }
+//
+//    // 結果を反映
+//    player->SetPos(pos);
+//
+//    // 結果の破棄
+//    MV1CollResultPolyDimTerminate(hits);
+//
+//}

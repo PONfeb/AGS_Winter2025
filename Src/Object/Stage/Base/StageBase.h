@@ -27,8 +27,17 @@ public:
 
     virtual bool IsClear() const = 0;
 
+    // 縦連結用 Zオフセット管理
+    void SetOffsetZ(float z) { offsetZ_ = z; }
+    float GetOffsetZ() const { return offsetZ_; }
+
+    // ステージの奥行きを返す（次ステージのオフセット計算用）
+    virtual float GetDepth() const = 0;
+
 protected:
 
     int modelId;
+
+    float offsetZ_ = 0.0f; // Z方向のオフセット
 
 };

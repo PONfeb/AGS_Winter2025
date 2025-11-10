@@ -16,7 +16,7 @@
 void StageManager::Init()
 {
 
-    currentIndex_ = 0; // ← これが重要
+    currentIndex_ = 0;
     stages_.clear();
 
     // 各レベルごとの候補ステージリスト

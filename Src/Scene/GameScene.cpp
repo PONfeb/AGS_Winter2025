@@ -89,11 +89,11 @@ void GameScene::Update(void)
     //grid_->Update();
 #endif // _DEBUG
 
-	// ステージ更新
-	stageMgr_->Update();
-
     // カメラ更新
     camera_->Update();
+
+    // ステージ更新
+	stageMgr_->Update();
 
     enemy_->Update(*player_, 5.0f);
 

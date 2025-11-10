@@ -1,8 +1,22 @@
 
 #include "GameScene.h"
-#include "../Common/Instance.h"
 
-GameScene::GameScene(void)
+
+#include "../Application.h"
+
+#include "../Debug/Grid.h"
+
+#include "../Common/Instance.h"
+#include "../Common/Camera.h"
+#include "../Common/PauseMenu.h"
+
+#include "../Object/Player/Player.h"
+#include "../Object/Enemy/Enemy.h"
+#include "../Object/Shot/ShotManager.h"
+#include "../Object/Stage/StageManager.h"
+
+
+GameScene::GameScene(void) : stageMgr_(nullptr), enemy_(nullptr), player_(nullptr), camera_(nullptr), shotMgr_(nullptr), grid_(nullptr), pauseMenu_(nullptr), wasPauseVisible_(false)
 {
 }
 
@@ -17,6 +31,10 @@ void GameScene::Init(void)
     //grid_ = new Grid();
     //grid_->Init();
 #endif
+
+    // ステージ情報
+	stageMgr_ = new StageManager();
+	stageMgr_->Init();
 
     // プレイヤー
     player_ = new Player();
@@ -71,10 +89,11 @@ void GameScene::Update(void)
     //grid_->Update();
 #endif // _DEBUG
 
-    // カメラ更新（SceneManager のカメラを使う）
-    camera_->Update();
+	// ステージ更新
+	stageMgr_->Update();
 
-    //stage1_1->Update();
+    // カメラ更新
+    camera_->Update();
 
     enemy_->Update(*player_, 5.0f);
 
@@ -82,8 +101,8 @@ void GameScene::Update(void)
     player_->Update();
 
     // ステージ当たり判定
-    FieldCollision(player_);
-    WallCollision(player_);
+    //FieldCollision(player_);
+    //WallCollision(player_);
 
     shotMgr_->Update();
 
@@ -107,7 +126,7 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 
-    DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(0, 0, 0), TRUE);
+    DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(255, 255, 255), TRUE);
     DrawString(0, 0, "Game Scene", GetColor(0, 0, 0));
     
 #ifdef _DEBUG
@@ -115,10 +134,11 @@ void GameScene::Draw(void)
     //grid_->Draw();
 #endif // _DEBUG
 
+	// ステージ
+	stageMgr_->Draw();
+
     camera_->SetBeforeDraw();
 	camera_->DrawDebug();
-
-    //stage1_1->Draw();
 
 	player_->Draw();
 
@@ -152,6 +172,11 @@ void GameScene::Release(void)
     //delete grid_;
     //grid_ = nullptr;
 #endif // _DEBUG
+
+	// ステージ
+	stageMgr_->Release();
+	delete stageMgr_;
+	stageMgr_ = nullptr;
 
     camera_->Release();
 	delete camera_;

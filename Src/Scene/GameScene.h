@@ -3,18 +3,6 @@
 
 #include "Base/SceneBase.h"
 
-#include "../Application.h"
-
-#include "../Debug/Grid.h"
-
-#include "../Common/Camera.h"
-#include "../Common/PauseMenu.h"
-
-#include "../Object/Stage/Stage1_1.h"
-#include "../Object/Player/Player.h"
-#include "../Object/Enemy/Enemy.h"
-#include "../Object/Shot/ShotManager.h"
-
 class SceneManager;
 
 class Grid;
@@ -23,7 +11,7 @@ class Camera;
 
 class PauseMenu;
 
-class RoomType_A;
+class StageManager;
 
 class Player;
 
@@ -45,8 +33,8 @@ public:
 
 	void CheckCollision();
 
-	void FieldCollision(Player* player);
-	void WallCollision(Player* player);
+	//void FieldCollision(Player* player);
+	//void WallCollision(Player* player);
 
 private:
 
@@ -60,7 +48,7 @@ private:
 	PauseMenu* pauseMenu_;
 
 	// ステージ
-	Stage1_1* stage1_1;
+	StageManager* stageMgr_;
 
 	// プレイヤー
 	Player* player_;

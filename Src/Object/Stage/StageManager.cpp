@@ -15,6 +15,10 @@
 
 void StageManager::Init()
 {
+
+    currentIndex_ = 0; // ← これが重要
+    stages_.clear();
+
     // 各レベルごとの候補ステージリスト
     std::vector<std::function<StageBase* ()>> level1 = {
         []() { return new Stage1_1(); },
@@ -49,6 +53,7 @@ void StageManager::Init()
     if (!stages_.empty()) {
         stages_[0]->Init();
     }
+
 }
 
 void StageManager::Update()
@@ -74,7 +79,16 @@ void StageManager::Draw()
     }
 }
 
-//bool StageManager::IsAllClear() const
-//{
-//    return currentIndex_ >= static_cast<int>(stages_.size());
-//}
+void StageManager::Release()
+{
+    // 各ステージのリソース解放
+	for (auto& stage : stages_) {
+		stage->Release();
+	}
+    stages_.clear();
+}
+
+bool StageManager::IsAllClear() const
+{
+    return currentIndex_ >= static_cast<int>(stages_.size());
+}

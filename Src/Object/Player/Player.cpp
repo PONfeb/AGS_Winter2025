@@ -17,20 +17,20 @@ Player::Player() : modelId_(-1), pos_(DEFAULT_POS), angles_{ 0,0,0 }, scales_(SC
 
 Player::~Player()
 {
-    if (modelId_ != -1) MV1DeleteModel(modelId_);
 }
 
 void Player::Init()
 {
+
     modelId_ = MV1LoadModel((Application::PATH_PLAYER + "player.mv1").c_str());
 
-    // マテリアルの数を取得
-    int num = MV1GetMaterialNum(modelId_);
-    for (int i = 1; i < num; i++)
-    {
-        // 0は地面なので、1から設定する
-        MV1SetMaterialEmiColor(modelId_, i, GetColorF(0.2f, 0.2f, 0.2f, 1.0f));
-    }
+    //// マテリアルの数を取得
+    //int num = MV1GetMaterialNum(modelId_);
+    //for (int i = 1; i < num; i++)
+    //{
+    //    // 0は地面なので、1から設定する
+    //    MV1SetMaterialEmiColor(modelId_, i, GetColorF(0.2f, 0.2f, 0.2f, 1.0f));
+    //}
 
     //if (modelId_ == -1) {
     //    printfDx("Player model load failed\n");
@@ -63,6 +63,7 @@ void Player::Init()
 
     // 初期状態 Idle
     ChangeState<IdleState>();
+
 }
 
 void Player::Update()
@@ -86,13 +87,18 @@ if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down && shotMgr_)
 
 void Player::Draw()
 {
+
     MV1DrawModel(modelId_);
 
     DrawSphere3D(pos_, collisionRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
+
+    DrawFormatString(20, 20, GetColor(0, 0, 0), "PlayerPos: (%.1f, %.1f, %.1f)", pos_.x, pos_.y, pos_.z);
+
 }
 
 void Player::DrawDebug()
 {
+
     // ローカル → ワールド変換
     VECTOR startWorld = VAdd(pos_, startCapsulePos_);
     VECTOR endWorld = VAdd(pos_, endCapsulePos_);
@@ -101,11 +107,14 @@ void Player::DrawDebug()
     DrawSphere3D(startWorld, capsuleRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
     DrawSphere3D(endWorld, capsuleRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
     DrawLine3D(startWorld, endWorld, GetColor(0, 255, 0));
+
 }
 
 void Player::Release()
 {
+
     MV1DeleteModel(modelId_);
+
 }
 
 void Player::UpdateRotationByMouse()
@@ -132,6 +141,7 @@ void Player::UpdateRotationByKeyboard(const VECTOR& moveDir)
     if (moveDir.x == 0.0f && moveDir.z == 0.0f) return;
 
     float targetY = atan2f(-moveDir.x, -moveDir.z);
+
     VECTOR ang = GetAngles();
     ang.y = Utility::LerpAngle(ang.y, targetY, 0.3f);
     SetAngles(ang);
@@ -162,7 +172,7 @@ void Player::TakeDamage(int damage)
 VECTOR Player::GetForwardDir() const
 {
     // Y軸回転角（ラジアン）を取得
-    float rotY = angles_.y; // プレイヤーのY回転角を保持している変数
+    float rotY = angles_.y; // プレイヤーのY回転角を保持している変数　
     // 前方向ベクトルを計算（XZ平面）
     VECTOR forward = VGet(-sinf(rotY), 0.0f, -cosf(rotY));
     return forward;

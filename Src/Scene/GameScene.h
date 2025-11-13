@@ -11,6 +11,8 @@ class Camera;
 
 class PauseMenu;
 
+class Stage;
+
 class StageManager;
 
 class Player;
@@ -33,8 +35,8 @@ public:
 
 	void CheckCollision();
 
-	//void FieldCollision(Player* player);
-	//void WallCollision(Player* player);
+	void FieldCollision(Player* player);
+	void WallCollision(Player* player);
 
 private:
 
@@ -46,6 +48,8 @@ private:
 
 	// ポーズメニュー
 	PauseMenu* pauseMenu_;
+
+	Stage* stage_;
 
 	// ステージ
 	StageManager* stageMgr_;

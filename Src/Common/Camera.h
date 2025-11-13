@@ -26,7 +26,7 @@ public:
 	static constexpr VECTOR DEFAULT_ANGLES = { 45.0f * DX_PI_F / 180.0f, 0.0f, 0.0f };
 
 	// カメラクリップ：NEAR
-	static constexpr float CAMERA_NEAR = 1000.0f;
+	static constexpr float CAMERA_NEAR = 1100.0f;
 
 	// カメラクリップ：FAR
 	static constexpr float CAMERA_FAR = 5500.0f;
@@ -76,4 +76,5 @@ private:
 	// カメラモード別の制御処理
 	void SetBeforeDrawFixedPoint(void);
 	void SetBeforeDrawFree(void);
+
 };

@@ -156,7 +156,7 @@ Camera* SceneManager::GetCamera(void)
 void SceneManager::Init3D(void)
 {
     // 背景色設定
-    SetBackgroundColor(0, 139, 139);
+    SetBackgroundColor(0, 255, 255);
 
     // Zバッファを有効にする
     SetUseZBuffer3D(true);
@@ -170,7 +170,6 @@ void SceneManager::Init3D(void)
     // ライトを有効にする
     SetUseLighting(true);
 
-    // ディレクショナルライト方向の設定(正規化されていなくても良い)
-    // 正面から斜め下に向かったライト
-    ChangeLightTypeDir({ 0.00f, 100.0f, 100.0f });
+    // ディレクショナルライト方向の設定
+    ChangeLightTypeDir({ 100.00f, 100.0f, 100.0f });
 }

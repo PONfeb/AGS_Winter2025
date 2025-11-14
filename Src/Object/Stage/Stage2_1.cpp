@@ -1,44 +1,29 @@
 
 #include "Stage2_1.h"
 
-Stage2_1::Stage2_1() : pos_(-1), scale_(-1)
-{
-}
+#include "../../Application.h"
 
-Stage2_1::~Stage2_1()
+Stage2_1::Stage2_1() : pos_(-1), scale_(-1)
 {
 }
 
 void Stage2_1::Init()
 {
 
-	pos_ = { STAGE_POS_2 };
-	scale_ = { STAGE_SCALE };
+    pos_ = STAGE_POS_2; // ÉåÉxÉã2ÇÃà íu
+    scale_ = STAGE_SCALE;
 
-	modelId = MV1LoadModel((Application::PATH_STAGE + "Stage2_1.mv1").c_str());
+    int id = MV1LoadModel((Application::PATH_STAGE + "Stage2_1.mv1").c_str());
 
-	MV1SetPosition(modelId, pos_);
-	MV1SetScale(modelId, scale_);
+    MV1SetPosition(id, pos_);
+    MV1SetScale(id, scale_);
 
-	// è’ìÀîªíËèÓïÒÇÃç\íz
-	MV1SetupCollInfo(modelId, -1);
+    MV1SetupCollInfo(id, -1);
+
+    modelIds.push_back(id);
 
 }
 
 void Stage2_1::Update()
 {
-}
-
-void Stage2_1::Draw()
-{
-
-	MV1DrawModel(modelId);
-
-}
-
-void Stage2_1::Release()
-{
-
-	MV1DeleteModel(modelId);
-
 }

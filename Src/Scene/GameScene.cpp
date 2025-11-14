@@ -50,14 +50,11 @@ void GameScene::Init(void)
     enemy_->Init(VGet(0, 0, 200));
 
     // ステージ情報
-	//stageMgr_ = new StageManager();
-	//stageMgr_->Init();
+	stageMgr_ = new StageManager();
+    stageMgr_->Init();
 
-    // ステージ
-    //stage1_1 = new Stage1_1();
-    //stage1_1->Init();
-	stage_ = new Stage();
-	stage_->Init();
+	//stage_ = new Stage();
+	//stage_->Init();
 
 	// プレイヤーにショットマネージャーをセット
 	shotMgr_ = new ShotManager();
@@ -100,8 +97,8 @@ void GameScene::Update(void)
     camera_->Update();
 
     // ステージ更新
-	//stageMgr_->Update();
-	stage_->Update();
+	stageMgr_->Update();
+	//stage_->Update();
 
     enemy_->Update(*player_, 5.0f);
 
@@ -109,8 +106,8 @@ void GameScene::Update(void)
     player_->Update();
 
     // ステージ当たり判定
-    FieldCollision(player_);
-    WallCollision(player_);
+    //FieldCollision(player_);
+    //WallCollision(player_);
 
     shotMgr_->Update();
 
@@ -145,10 +142,10 @@ void GameScene::Draw(void)
     camera_->SetBeforeDraw();
 	camera_->DrawDebug();
 
-	stage_->Draw();
+	//stage_->Draw();
 
     // ステージ
-	//stageMgr_->Draw();
+	stageMgr_->Draw();
 
 	player_->Draw();
 
@@ -188,16 +185,13 @@ void GameScene::Release(void)
 	camera_ = nullptr;
 
 	// ステージ
-	//stageMgr_->Release();
-	//delete stageMgr_;
-	//stageMgr_ = nullptr;
+	stageMgr_->Release();
+	delete stageMgr_;
+	stageMgr_ = nullptr;
 
-    //stage1_1->Release();
-    //delete stage1_1;
-    //stage1_1 = nullptr;
-	stage_->Release();
-	delete stage_;
-	stage_ = nullptr;
+	//stage_->Release();
+	//delete stage_;
+	//stage_ = nullptr;
 
 	// プレイヤー
 	player_->Release();
@@ -329,7 +323,7 @@ void GameScene::WallCollision(Player* player)
         auto hit_a = hit_1.Dim[i];
 
         // 当たっていたら、法線方向に押し戻す
-        pos = VAdd(pos, VScale(hit_a.Normal, 2.0f));
+        pos = VAdd(pos, VScale(hit_a.Normal, 1.5f));
     }
 
     // 結果を反映
@@ -371,7 +365,7 @@ void GameScene::WallCollision(Player* player)
     //player->SetPos(pos);
 
     // 結果の破棄
-    MV1CollResultPolyDimTerminate(hit_1);
+    //MV1CollResultPolyDimTerminate(hit_1);
     //MV1CollResultPolyDimTerminate(hit_2);
     //MV1CollResultPolyDimTerminate(hit_3);
 

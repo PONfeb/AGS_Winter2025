@@ -3,26 +3,23 @@
 
 #include "Base/StageBase.h"
 
-#include <DxLib.h>
-
 class Stage1_2 : public StageBase
 {
 public:
 
-	Stage1_2();
-	~Stage1_2();
+    Stage1_2();
+    ~Stage1_2() override = default;
 
-	void Init() override;
-	void Update() override;
-	void Draw() override;
-	void Release() override;
+    void Init() override;
+    void Update() override;
+    // Draw ‚Æ Release ‚Í Base ‚Ìˆ—‚Å\•ª
+    // void Draw() override;
+    // void Release() override;
 
-	bool IsClear() const override { return true; }
+    bool IsClear() const override { return true; }
 
 private:
 
-	VECTOR pos_;
-	VECTOR scale_;
-
+    VECTOR pos_;
+    VECTOR scale_;
 };
-

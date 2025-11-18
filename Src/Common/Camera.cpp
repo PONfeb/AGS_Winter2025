@@ -21,6 +21,7 @@ void Camera::Init(void)
 	pos_ = DEFAULT_POS;
 	angles_ = DEFAULT_ANGLES;
 
+
 }
 
 void Camera::Update(void)
@@ -89,6 +90,9 @@ void Camera::SetBeforeDrawFree(void)
 
 void Camera::SetBeforeDrawFollow(Player* player)
 {
+
+	// カメラを正射影に変更
+	//SetupCamera_Ortho(2000.0f);
 
 	// プレイヤーの座標を取得
 	VECTOR playerPos = player->GetPos();

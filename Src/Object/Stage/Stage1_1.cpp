@@ -21,7 +21,6 @@ void Stage1_1::Init()
     // Õ“Ë”»’èî•ñ‚Ì\’z
     MV1SetupCollInfo(id, -1);
 
-    // Base ‚Ì vector ‚É“o˜^
     modelIds.push_back(id);
 
 }

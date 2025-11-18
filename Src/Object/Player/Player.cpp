@@ -92,7 +92,7 @@ void Player::Draw()
 
     DrawSphere3D(pos_, collisionRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
 
-    DrawFormatString(20, 20, GetColor(0, 0, 0), "PlayerPos: (%.1f, %.1f, %.1f)", pos_.x, pos_.y, pos_.z);
+    DrawFormatString(20, 600, GetColor(255, 255, 255), "PlayerPos: (%.1f, %.1f, %.1f)", pos_.x, pos_.y, pos_.z);
 
 }
 

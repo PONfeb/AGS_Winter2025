@@ -51,7 +51,7 @@ void StageManager::Init()
         []() { return std::make_unique<Stage3_3>(); },
     };
 
-    // 抽選用の分布（0?2）
+    // 抽選用の分布
     std::uniform_int_distribution<int> dist(0, 2);
 
     // 各レベルからランダム抽選して確定ステージに追加

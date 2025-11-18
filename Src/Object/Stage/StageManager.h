@@ -22,6 +22,8 @@ public:
 
     bool IsAllClear() const; // 全ステージクリア判定
 
+    const std::vector<std::unique_ptr<StageBase>>& GetStages() const { return stages_; }
+
 private:
 
     std::vector<std::unique_ptr<StageBase>> stages_; // 抽選された3ステージ

@@ -6,7 +6,14 @@
 
 #include "../../../Application.h"
 
-// ステージの基底クラス
+struct StageArea
+{
+    float minX;
+	float maxX;
+	float minZ;
+	float maxZ;
+};
+
 class StageBase
 {
 public:

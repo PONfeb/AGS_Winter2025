@@ -47,7 +47,7 @@ void Player::Init()
 
     animationController_ = std::make_unique<AnimationController>(modelId_);
 
-    // アニメーション登録（例）
+    // アニメーション登録
     animationController_->AddInFbx(0, 30.f, 36); // IDLE
     animationController_->AddInFbx(1, 30.f, 73); // WALK
     animationController_->AddInFbx(2, 30.f, 39); // JUMP
@@ -68,14 +68,23 @@ void Player::Init()
 
 void Player::Update()
 {
+
+    // --- 重力 ---
+    if (!isGround_)
+    {
+        fallVelocity_ -= 0.98f;  // ←重力値（調整可）
+        if (fallVelocity_ < -50.0f)
+            fallVelocity_ = -50.0f; // 終端速度
+    }
+
     MV1SetPosition(modelId_, pos_);
     MV1SetRotationXYZ(modelId_, angles_);
 
-if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down && shotMgr_)
-{
-    currentState_ = std::make_unique<AttackState>(shotMgr_);
-    currentState_->Enter(*this);
-}
+    if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down && shotMgr_)
+    {
+        currentState_ = std::make_unique<AttackState>(shotMgr_);
+        currentState_->Enter(*this);
+    }
 
     // 現在の状態更新
     if (currentState_)
@@ -83,6 +92,7 @@ if (KEY::GetIns().GetInfo(KEY_TYPE::ATTACK).down && shotMgr_)
 
     if (animationController_)
         animationController_->Update();
+
 }
 
 void Player::Draw()
@@ -171,9 +181,12 @@ void Player::TakeDamage(int damage)
 
 VECTOR Player::GetForwardDir() const
 {
+
     // Y軸回転角（ラジアン）を取得
-    float rotY = angles_.y; // プレイヤーのY回転角を保持している変数　
+    float rotY = angles_.y; // プレイヤーのY回転角を保持している変数
+
     // 前方向ベクトルを計算（XZ平面）
     VECTOR forward = VGet(-sinf(rotY), 0.0f, -cosf(rotY));
     return forward;
+
 }

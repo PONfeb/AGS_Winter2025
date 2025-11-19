@@ -9,7 +9,6 @@
 #include "../Common/Camera.h"
 #include "../Common/PauseMenu.h"
 
-#include "../Object/Stage/Stage.h"
 #include "../Object/Stage/StageManager.h"
 
 #include "../Object/Player/Player.h"
@@ -101,8 +100,22 @@ void GameScene::Update(void)
 	// プレイヤー
     player_->Update();
 
-    // ステージ当たり判定
-    FieldCollision(player_);
+    // 床判定
+    bool onGround = FieldCollision(player_);
+
+    if (onGround)
+    {
+        player_->SetIsGround(true);
+        player_->SetFallVelocity(0.0f);
+
+        // FieldCollision が pos.y をセットしたあと、
+        // モデルにも座標を再反映
+        MV1SetPosition(player_->GetModelId(), player_->GetPos());
+    }
+    else
+    {
+        player_->SetIsGround(false);
+    }
     WallCollision(player_);
 
     shotMgr_->Update();
@@ -142,11 +155,9 @@ void GameScene::Draw(void)
 	stageMgr_->Draw();
 
 	player_->Draw();
-
 	player_->DrawDebug();
 
     enemy_->Draw();
-
 
     shotMgr_->Draw();
 
@@ -172,10 +183,6 @@ void GameScene::Release(void)
 	stageMgr_->Release();
 	delete stageMgr_;
 	stageMgr_ = nullptr;
-
-	//stage_->Release();
-	//delete stage_;
-	//stage_ = nullptr;
 
 	// プレイヤー
 	player_->Release();
@@ -228,39 +235,45 @@ void GameScene::CheckCollision()
     }
 }
 
-// 床との判定
-void GameScene::FieldCollision(Player* player)
+// 床との判定（改良版）
+bool GameScene::FieldCollision(Player* player)
 {
-    auto& stages = stageMgr_->GetStages(); // 3つ全部
-
+    auto& stages = stageMgr_->GetStages();
     VECTOR pos = player->GetPos();
     VECTOR startPos = VAdd(pos, player->GetStartCapsulePos());
-    VECTOR endPos = VAdd(pos, player->GetEndCapsulePos());
+    VECTOR endPos   = VAdd(pos, player->GetEndCapsulePos());
+
+    float maxGroundY = -FLT_MAX;
+    bool hit = false;
 
     for (auto& stage : stages)
     {
         const auto& ids = stage->GetModelIds();
-        if (ids.empty()) continue;  // ←必須
+        if (ids.empty()) continue;
 
-        for (int modelId : ids)    // 複数モデル対応
+        for (int modelId : ids)
         {
             if (modelId < 0) continue;
 
-            MV1_COLL_RESULT_POLY hit = MV1CollCheck_Line(modelId, -1, startPos, endPos);
+            MV1_COLL_RESULT_POLY res =
+                MV1CollCheck_Line(modelId, -1, startPos, endPos);
 
-            if (hit.HitFlag)
+            if (res.HitFlag)
             {
-                float groundY = hit.HitPosition.y;
-
-                if (pos.y < groundY)
-                {
-                    pos.y = groundY;
-                    player->SetPos(pos);
-                    return;
-                }
+                hit = true;
+                if (res.HitPosition.y > maxGroundY)
+                    maxGroundY = res.HitPosition.y;
             }
         }
     }
+
+    if (hit)
+    {
+        pos.y = maxGroundY;      // ←常に最新の地面を使う
+        player->SetPos(pos);
+    }
+
+    return hit;                 // ←地面があるか返す
 }
 
 // 壁との判定

@@ -76,6 +76,15 @@ public:
 
     void SetShotManager(ShotManager* mgr) { shotMgr_ = mgr; }
 
+    // --- 追加 ---
+    void SetIsGround(bool flag) { isGround_ = flag; }
+    bool GetIsGround() const { return isGround_; }
+
+    void SetFallVelocity(float v) { fallVelocity_ = v; }
+    float GetFallVelocity() const { return fallVelocity_; }
+
+    int GetModelId() const { return modelId_; }
+
     float collisionRadius_ = 24.0f; // 判定用半径
 
 private:
@@ -103,6 +112,9 @@ private:
     int hp_;
     bool isAlive_;
     int damage_ = 1; // プレイヤーに与えるダメージ
+
+    bool isGround_ = false;
+    float fallVelocity_ = 0.0f;
 
     std::unique_ptr<AnimationController> animationController_;
     std::unique_ptr<PlayerStateBase> currentState_;

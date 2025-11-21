@@ -182,7 +182,6 @@
     <ClCompile Include="Src\Utility\Utility.cpp" />
     <ClCompile Include="Src\Object\Player\State\IdleState.cpp" />
     <ClCompile Include="Src\Object\Player\State\JumpState.cpp" />
-    <ClCompile Include="Src\Object\Stage\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Vector2.h" />
@@ -229,7 +228,6 @@
     <ClInclude Include="Src\Utility\Utility.h" />
     <ClInclude Include="Src\Object\Player\State\IdleState.h" />
     <ClInclude Include="Src\Object\Player\State\JumpState.h" />
-    <ClInclude Include="Src\Object\Stage\Stage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

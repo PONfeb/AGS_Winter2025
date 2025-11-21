@@ -1,8 +1,6 @@
 
 #include "Stage2_1.h"
 
-#include "../../Application.h"
-
 Stage2_1::Stage2_1() : pos_(-1), scale_(-1)
 {
 }

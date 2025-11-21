@@ -17,7 +17,6 @@
 
 #include "../Object/Shot/ShotManager.h"
 
-
 GameScene::GameScene(void) : stageMgr_(nullptr), enemy_(nullptr), player_(nullptr), camera_(nullptr), shotMgr_(nullptr), grid_(nullptr), pauseMenu_(nullptr), wasPauseVisible_(false)
 {
 }

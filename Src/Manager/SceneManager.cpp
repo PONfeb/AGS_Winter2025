@@ -148,11 +148,6 @@ void SceneManager::ResetDeltaTime(void)
     preTime_ = std::chrono::system_clock::now();
 }
 
-Camera* SceneManager::GetCamera(void)
-{
-    return camera_;
-}
-
 void SceneManager::Init3D(void)
 {
     // 背景色設定
@@ -171,5 +166,5 @@ void SceneManager::Init3D(void)
     SetUseLighting(true);
 
     // ディレクショナルライト方向の設定
-    ChangeLightTypeDir({ 100.00f, 100.0f, 100.0f });
+    ChangeLightTypeDir({ 0.f, 1000.0f, 1000.f });
 }

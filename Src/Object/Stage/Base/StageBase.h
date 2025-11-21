@@ -36,19 +36,10 @@ public:
     virtual void Update() = 0;
 
     // 描画
-    virtual void Draw() {
-        for (auto id : modelIds) {
-            if (id != -1) MV1DrawModel(id);
-        }
-    }
+    virtual void Draw();
 
     // 解放
-    virtual void Release() {
-        for (auto id : modelIds) {
-            if (id != -1) MV1DeleteModel(id);
-        }
-        modelIds.clear();
-    }
+    virtual void Release();
 
     // ステージクリア判定
     virtual bool IsClear() const = 0;
@@ -59,4 +50,5 @@ public:
 protected:
 
     std::vector<int> modelIds; // 複数モデルを保持可能
+
 };

@@ -4,8 +4,6 @@
 #include <chrono>
 #include "../Scene/Base/SceneBase.h"
 
-class Camera;
-
 class SceneBase;
 
 class SceneManager
@@ -35,8 +33,6 @@ public:
 
     void ResetDeltaTime(void);
 
-    Camera* GetCamera(void);
-
     void Init3D(void);
 
 private:
@@ -47,9 +43,6 @@ private:
 
     SceneManager();
     ~SceneManager();
-
-    // ƒJƒƒ‰
-    Camera* camera_;
 
 	SceneBase* scene_;
 

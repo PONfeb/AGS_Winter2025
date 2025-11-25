@@ -1,6 +1,11 @@
 
 #include "GameOver.h"
+
+#include "../Application.h"
+
 #include "../Common/Instance.h"
+
+#include "../Common/PauseMenu.h"
 
 GameOver::GameOver(void)
 {
@@ -12,6 +17,8 @@ GameOver::~GameOver(void)
 
 void GameOver::Init(void)
 {
+
+
 }
 
 void GameOver::Update(void)

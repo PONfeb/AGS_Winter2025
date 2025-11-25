@@ -12,6 +12,10 @@ class StageManager
 {
 public:
 
+    static constexpr VECTOR STAGE_LEVEL_1 = { 0.f, 0.f, 0.f };
+    static constexpr VECTOR STAGE_LEVEL_2 = { 0.f, 0.f, 3300.f };
+    static constexpr VECTOR STAGE_LEVEL_3 = { 0.f, 0.f, 8200.f };
+
     StageManager();
     ~StageManager();
 
@@ -23,6 +27,8 @@ public:
     bool IsAllClear() const; // 全ステージクリア判定
 
     const std::vector<std::unique_ptr<StageBase>>& GetStages() const { return stages_; }
+
+    int GetCurrentLevel(const VECTOR& playerPos) const;
 
 private:
 

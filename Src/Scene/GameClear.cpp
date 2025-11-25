@@ -1,7 +1,11 @@
 
 #include "GameClear.h"
 
+#include "../Application.h"
+
 #include "../Common/Instance.h"
+
+#include "../Common/PauseMenu.h"
 
 GameClear::GameClear(void)
 {

@@ -6,14 +6,6 @@
 
 #include "../../../Application.h"
 
-struct StageArea
-{
-    float minX;
-	float maxX;
-	float minZ;
-	float maxZ;
-};
-
 class StageBase
 {
 public:

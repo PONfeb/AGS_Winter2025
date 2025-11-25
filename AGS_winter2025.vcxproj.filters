@@ -227,9 +227,6 @@
     <ClInclude Include="Src\Object\Shot\ShotManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Enemy\Base\EnemyStateBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Manager\KeyManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

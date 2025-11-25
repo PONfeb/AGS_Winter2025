@@ -5,6 +5,8 @@
 
 class SceneManager;
 
+class PauseMenu;
+
 class GameClear : public SceneBase
 {
 public:
@@ -18,5 +20,7 @@ public:
 	void Release(void) override;
 
 private:
+
+	PauseMenu* pauseMenu_;
 
 };

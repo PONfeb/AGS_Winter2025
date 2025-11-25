@@ -4,7 +4,6 @@
 #include "Base/SceneBase.h"
 
 #include "../Application.h"
-#include "../Common/PauseMenu.h"
 
 class SceneManager;
 
@@ -24,6 +23,8 @@ public:
 
 private:
 
-	PauseMenu pauseMenu_;
+	PauseMenu* pauseMenu_;
+
+	int img_;
 
 };

@@ -187,7 +187,6 @@
     <ClInclude Include="Src\Common\Vector2.h" />
     <ClInclude Include="Src\Manager\KeyManager.h" />
     <ClInclude Include="Src\Object\Enemy\Enemy.h" />
-    <ClInclude Include="Src\Object\Enemy\Base\EnemyStateBase.h" />
     <ClInclude Include="Src\Object\Shot\ShotNomal.h" />
     <ClInclude Include="Src\Object\Shot\Base\ShotBase.h" />
     <ClInclude Include="Src\Object\Shot\ShotManager.h" />

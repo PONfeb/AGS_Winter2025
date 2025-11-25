@@ -109,3 +109,21 @@ bool StageManager::IsAllClear() const
 {
     return currentIndex_ >= static_cast<int>(stages_.size());
 }
+
+int StageManager::GetCurrentLevel(const VECTOR& pos) const
+{
+    // レベル1
+    if (pos.z < STAGE_LEVEL_2.z)
+        return 1;
+
+    // レベル2
+    if (pos.z >= STAGE_LEVEL_2.z &&
+        pos.z < STAGE_LEVEL_3.z)
+        return 2;
+
+    // レベル3
+    if (pos.z >= STAGE_LEVEL_3.z)
+        return 3;
+
+    return 0; // 想定外
+}

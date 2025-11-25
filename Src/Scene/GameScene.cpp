@@ -160,6 +160,10 @@ void GameScene::Draw(void)
 
     shotMgr_->Draw();
 
+    // --- Œ»ÝƒŒƒxƒ‹•\Ž¦ ---
+    int level = stageMgr_->GetCurrentLevel(player_->GetPos());
+    DrawFormatString(20, 20, GetColor(255, 255, 255), "Level %d", level);
+
     pauseMenu_->Draw();
 
 }

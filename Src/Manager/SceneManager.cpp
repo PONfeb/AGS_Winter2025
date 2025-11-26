@@ -151,7 +151,7 @@ void SceneManager::ResetDeltaTime(void)
 void SceneManager::Init3D(void)
 {
     // 背景色設定
-    SetBackgroundColor(0, 255, 255);
+    SetBackgroundColor(0, 0, 0);
 
     // Zバッファを有効にする
     SetUseZBuffer3D(true);
@@ -162,9 +162,9 @@ void SceneManager::Init3D(void)
     // バックカリングを有効にする
     SetUseBackCulling(true);
 
-    // ライトを有効にする
+    // ライトの設定
     SetUseLighting(true);
 
-    // ディレクショナルライト方向の設定
-    ChangeLightTypeDir({ 0.f, 1000.0f, 1000.f });
+    // 正面から斜め下に向かったライト
+    //ChangeLightTypeDir({ 0.00f, -1.00f, 1.00f });
 }

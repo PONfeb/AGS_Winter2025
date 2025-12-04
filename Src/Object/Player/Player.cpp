@@ -22,7 +22,7 @@ Player::~Player()
 void Player::Init()
 {
 
-    modelId_ = MV1LoadModel((Application::PATH_PLAYER + "player.mv1").c_str());
+    modelId_ = MV1LoadModel((Application::PATH_MODEL + "Player/Rogue.mv1").c_str());
 
     if (modelId_ == -1) {
         printfDx("Player model load failed\n");
@@ -95,6 +95,8 @@ void Player::Draw()
     DrawSphere3D(pos_, collisionRadius_, 16, GetColor(0, 255, 0), GetColor(0, 255, 0), FALSE);
 
     DrawFormatString(20, 600, GetColor(255, 255, 255), "PlayerPos: (%.1f, %.1f, %.1f)", pos_.x, pos_.y, pos_.z);
+
+    //DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", MV1SearchFrame(modelId_, "Mesh_1"));
 
 }
 

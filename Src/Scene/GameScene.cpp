@@ -258,8 +258,7 @@ bool GameScene::FieldCollision(Player* player)
         {
             if (modelId < 0) continue;
 
-            MV1_COLL_RESULT_POLY res =
-                MV1CollCheck_Line(modelId, -1, startPos, endPos);
+            MV1_COLL_RESULT_POLY res = MV1CollCheck_Line(modelId, -1, startPos, endPos);
 
             if (res.HitFlag)
             {

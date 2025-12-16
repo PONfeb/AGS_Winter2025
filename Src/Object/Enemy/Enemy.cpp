@@ -1,7 +1,9 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy() : pos_(VGet(0, 0, 0)), radius_(100.0f), detectRange_(1500.0f), speed_(3.0f), hp_(3), isAlive_(true)
+#include "../../Application.h"
+
+Enemy::Enemy() : pos_(VGet(0, 0, 0)), radius_(100.0f), detectRange_(1500.f), speed_(3.0f), hp_(3), isAlive_(true)
 {
 }
 
@@ -15,6 +17,18 @@ void Enemy::Init(const VECTOR& pos, int hp)
     pos_ = pos;
     hp_ = hp;
     isAlive_ = true;
+
+    // モデル読み込み（まだ読み込んでいなければ）
+    if (modelHandle_ == -1)
+    {
+        modelHandle_ = MV1LoadModel(
+            (Application::PATH_ENEMY + "Mutant/Mutant.mv1").c_str()
+        );
+    }
+
+    // モデルの初期設定
+    MV1SetPosition(modelHandle_, pos_);
+    MV1SetScale(modelHandle_, scale_);
 }
 
 void Enemy::Update(Player& player, float deltaTime)
@@ -22,7 +36,7 @@ void Enemy::Update(Player& player, float deltaTime)
     if (!isAlive_) return;
 
     VECTOR diff = VSub(player.GetPos(), pos_);
-    float dist = sqrtf(diff.x * diff.x + diff.z * diff.z); // XZ距離
+    float dist = sqrtf(diff.x * diff.x + diff.z * diff.z);
 
     if (dist <= detectRange_)
     {
@@ -33,6 +47,9 @@ void Enemy::Update(Player& player, float deltaTime)
         pos_.z += dir.z * speed_ * deltaTime;
     }
 
+    // ★ モデル位置を更新
+    MV1SetPosition(modelHandle_, pos_);
+
     CheckCollisionWithPlayer(player);
 }
 
@@ -40,14 +57,21 @@ void Enemy::Draw()
 {
     if (!isAlive_) return;
 
-    // 敵本体
-    DrawSphere3D(pos_, radius_, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
+    // ★ モデル描画
+    MV1DrawModel(modelHandle_);
 
     // 追跡範囲の可視化（半透明の青色）
     DrawSphere3D(pos_, detectRange_, 16, GetColor(0, 0, 255), GetColor(0, 0, 255), false);
 }
 
-void Enemy::Release() {}
+void Enemy::Release()
+{
+    if (modelHandle_ != -1)
+    {
+        MV1DeleteModel(modelHandle_);
+        modelHandle_ = -1;
+    }
+}
 
 void Enemy::TakeDamage(int damage)
 {

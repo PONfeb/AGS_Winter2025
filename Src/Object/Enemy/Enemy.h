@@ -25,10 +25,13 @@ public:
 
 private:
     VECTOR pos_;
+	VECTOR scale_ = { 2.0f, 2.0f, 2.0f };
     float radius_;
     int hp_;
     bool isAlive_;
-    bool speed_;
+    float speed_;
+
+    int modelHandle_;
 
     float detectRange_;
     int damage_ = 1; // プレイヤーに与えるダメージ

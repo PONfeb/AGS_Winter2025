@@ -22,7 +22,7 @@ Player::~Player()
 void Player::Init()
 {
 
-    modelId_ = MV1LoadModel((Application::PATH_PLAYER + "Player.mv1").c_str());
+    modelId_ = MV1LoadModel((Application::PATH_PLAYER + "Rogue.mv1").c_str());
 
     if (modelId_ == -1) {
         printfDx("Player model load failed\n");

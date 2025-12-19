@@ -22,7 +22,7 @@ Player::~Player()
 void Player::Init()
 {
 
-    modelId_ = MV1LoadModel((Application::PATH_PLAYER + "player.mv1").c_str());
+    modelId_ = MV1LoadModel((Application::PATH_PLAYER + "Wizard.mv1").c_str());
 
     //// マテリアルの数を取得
     //int num = MV1GetMaterialNum(modelId_);
@@ -48,11 +48,11 @@ void Player::Init()
     animationController_ = std::make_unique<AnimationController>(modelId_);
 
     // アニメーション登録
-    animationController_->AddInFbx(0, 30.f, 36); // IDLE
-    animationController_->AddInFbx(1, 30.f, 73); // WALK
-    animationController_->AddInFbx(2, 30.f, 39); // JUMP
-    animationController_->AddInFbx(3, 30.f, 6);  // SHOT
-    animationController_->AddInFbx(4, 30.f, 7);  // SHOT
+    animationController_->AddInFbx(0, 30.f, 36);  // IDLE
+    animationController_->AddInFbx(1, 30.f, 73);  // WALK
+    animationController_->AddInFbx(2, 30.f, 39);  // JUMP
+    animationController_->AddInFbx(3, 30.f, 6);   // SHOT
+    animationController_->AddInFbx(4, 30.f, 7);   // SHOT
     animationController_->AddInFbx(5, 30.f, 16);  // SHOT
     animationController_->AddInFbx(6, 30.f, 17);  // SHOT
 

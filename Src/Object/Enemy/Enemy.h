@@ -24,11 +24,16 @@ public:
     void CheckCollisionWithPlayer(Player& player)const;
 
 private:
+
     VECTOR pos_;
+	VECTOR angles_{ 0.0f, 0.0f, 0.0f };
+
     float radius_;
     int hp_;
     bool isAlive_;
     bool speed_;
+
+    int modelid;
 
     float detectRange_;
     int damage_ = 1; // プレイヤーに与えるダメージ

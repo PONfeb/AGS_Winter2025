@@ -166,5 +166,5 @@ void SceneManager::Init3D(void)
     SetUseLighting(true);
 
     // ディレクショナルライト方向の設定
-    ChangeLightTypeDir({ 0.f, 1000.0f, 1000.f });
+    ChangeLightTypeDir({ 0.00f, -2.00f, 1.00f });
 }

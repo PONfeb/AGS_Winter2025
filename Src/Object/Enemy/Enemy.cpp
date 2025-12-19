@@ -1,6 +1,8 @@
 
 #include "Enemy.h"
 
+#include "../../Application.h"
+
 Enemy::Enemy() : pos_(VGet(0, 0, 0)), radius_(100.0f), detectRange_(1500.0f), speed_(3.0f), hp_(3), isAlive_(true)
 {
 }
@@ -15,11 +17,19 @@ void Enemy::Init(const VECTOR& pos, int hp)
     pos_ = pos;
     hp_ = hp;
     isAlive_ = true;
+
+	modelid = MV1LoadModel((Application::PATH_ENEMY + "Mutant.mv1").c_str());
+
+    MV1SetPosition(modelid, pos_);
+
 }
 
 void Enemy::Update(Player& player, float deltaTime)
 {
     if (!isAlive_) return;
+
+    MV1SetPosition(modelid, pos_);
+    MV1SetRotationXYZ(modelid, angles_);
 
     VECTOR diff = VSub(player.GetPos(), pos_);
     float dist = sqrtf(diff.x * diff.x + diff.z * diff.z); // XZ‹——£
@@ -39,6 +49,8 @@ void Enemy::Update(Player& player, float deltaTime)
 void Enemy::Draw()
 {
     if (!isAlive_) return;
+
+    MV1DrawModel(modelid);
 
     // “G–{‘Ì
     DrawSphere3D(pos_, radius_, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), FALSE);
